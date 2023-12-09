@@ -6,6 +6,7 @@ export interface productInterface extends Document {
     price: number;
     rating: number;
     imageURL: string;
+    quantity: number;
     admin: Schema.Types.ObjectId | object;
     createdAt: Date;
 }
@@ -17,6 +18,7 @@ const ProductSchema = new Schema<productInterface>(
     price: {type: Number, required: true},
     rating: {type: Number},
     imageURL: {type: String, required: true},
+    quantity: {type: Number, required: true},
     admin: { type: Schema.Types.ObjectId, ref: "Admin", required: true },
     createdAt: { type: Date, default: Date.now },
   },
