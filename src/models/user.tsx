@@ -3,9 +3,8 @@ import mongoose, { Document, Schema } from "mongoose";
 export interface userInterface extends Document {
   user: string;
   password: string;
-  city: string;
-  pin: number;
-  wallet: number;
+  profile: Schema.Types.ObjectId;
+  purchases: Schema.Types.ObjectId[] | object[];
   createdAt: Date;
 }
 
@@ -13,9 +12,8 @@ const UserSchema = new Schema<userInterface>(
   {
     user: { type: String, required: true },
     password: { type: String, required: true },
-    city: { type: String, required: true },
-    pin: { type: Number, required: true },
-    wallet: { type: Number, default: 0 },
+    profile: { type: Schema.Types.ObjectId, ref: "Profile" },
+    purchases: [{ type: Schema.Types.ObjectId, ref: "ItemsCart" }],
     createdAt: { type: Date, default: Date.now },
   },
   {
