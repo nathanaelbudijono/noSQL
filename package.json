@@ -40,7 +40,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/howler": "^2.2.8",
+    "@types/howler": "^2.2.11",
     "@types/lodash.get": "^4.4.7",
     "@types/react-collapse": "^5.0.1",
     "@types/react-datepicker": "^4.15.0",
