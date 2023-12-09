@@ -6,7 +6,7 @@ export interface adminInterface extends Document {
   createdAt: Date;
 }
 
-const UserSchema = new Schema<adminInterface>(
+const AdminSchema = new Schema<adminInterface>(
   {
     admin: { type: String, required: true },
     password: { type: String, required: true },
@@ -18,5 +18,5 @@ const UserSchema = new Schema<adminInterface>(
 );
 
 export const Admin =
-  mongoose.models.Admin || mongoose.model<adminInterface>("Admin", UserSchema);
+  mongoose.models.Admin || mongoose.model<adminInterface>("Admin", AdminSchema);
 
