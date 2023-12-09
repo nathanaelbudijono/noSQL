@@ -23,6 +23,7 @@
     "framer-motion": "^10.16.1",
     "howler": "^2.2.3",
     "lodash.get": "^4.4.2",
+    "mongoose": "^8.0.3",
     "next": "13.4.19",
     "next-themes": "^0.2.1",
     "nextjs-progressbar": "^0.0.16",
