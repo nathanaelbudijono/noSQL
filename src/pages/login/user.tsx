@@ -17,8 +17,11 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ArrowLink from "@/components/links/arrow-link";
 import Navbar from "@/modules/navbar";
+import { useAppStore } from "@/lib/store";
 
 export default function UserLogin() {
+  const { loginUser, errorMessage } = useAppStore();
+  const router = useRouter();
   const FormSchema = z.object({
     username: z.string().min(2, {
       message: "Username must be at least 2 characters.",
@@ -36,7 +39,10 @@ export default function UserLogin() {
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    await loginUser(data.username, data.password);
+    if (!errorMessage) {
+      router.push("/");
+    }
   }
   return (
     <main className="relative">
