@@ -24,7 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ArrowLink from "@/components/links/arrow-link";
 import Navbar from "@/modules/navbar";
 import { useAppStore } from "@/lib/store";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function UserRegister() {
   const { registerUser, errorMessage } = useAppStore();
@@ -143,6 +143,18 @@ export default function UserRegister() {
           </ArrowLink>
         </div>
       </Layout>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </main>
   );
 }
