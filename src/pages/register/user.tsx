@@ -105,7 +105,7 @@ export default function UserRegister() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <PasswordInput
-                      placeholder="Enter your password"
+                      placeholder="Enter your password confirmation"
                       {...field}
                     />
                   )}

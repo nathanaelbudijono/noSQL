@@ -103,12 +103,15 @@ export default function AdminLogin() {
                   name="confirmPassword"
                   render={({ field }) => (
                     <PasswordInput
-                      placeholder="Enter your password"
+                      placeholder="Enter your password confirmation."
                       {...field}
                     />
                   )}
                 />
               </div>
+              <Typography variant="small" color="danger">
+                {error}
+              </Typography>
               <div className="justify-end flex mt-3">
                 <Button
                   type="submit"
