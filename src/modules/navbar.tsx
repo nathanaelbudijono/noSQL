@@ -9,7 +9,7 @@ import Typography from "@/components/core/typography";
 import { FaUserCircle } from "react-icons/fa";
 
 export default function Navbar() {
-  const { users, logout } = useAppStore();
+  const { users, logout, admins } = useAppStore();
 
   const pathname = usePathname();
   const router = useRouter();
@@ -18,7 +18,7 @@ export default function Navbar() {
     await logout();
     window.location.reload();
   }
-  if (users?.userToken) {
+  if (users?.userToken || admins?.adminToken) {
     return (
       <main className={clsx("max-md:px-6 sticky top-0 z-10", "bg-neutral-600")}>
         <section className="max-w-4xl mx-auto">

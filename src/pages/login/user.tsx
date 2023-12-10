@@ -47,7 +47,7 @@ export default function UserLogin() {
         username,
         password,
       });
-      console.log(res);
+
       if (res.status === 200) {
         router.push("/");
       } else {
@@ -59,6 +59,7 @@ export default function UserLogin() {
   }
   return (
     <main className="relative">
+      <Seo title="Login" />
       <Navbar />
       <Seo title="Login" />
       <Layout className="justify-center items-center flex-col h-screen relative">
