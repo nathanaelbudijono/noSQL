@@ -142,7 +142,15 @@ export default function UserRegister() {
             Login disini.
           </ArrowLink>
         </div>
+        <button
+          onClick={() => {
+            toast.success("Sign up success!");
+          }}
+        >
+          testdddd
+        </button>
       </Layout>
+
       <ToastContainer
         position="top-right"
         autoClose={5000}
