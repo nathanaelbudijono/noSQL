@@ -28,7 +28,7 @@ export const adminSlice: StateCreator<AdminState> = (set, get) => ({
   registerAdmin: async (username: string, password: string) => {
     try {
       set({ errorMessage: "" });
-      await axios.post(`${nextAPIUrl}/user/register`, { username, password });
+      await axios.post(`${nextAPIUrl}/admin`, { username, password });
     } catch (err: any) {
       set({ errorMessage: err.response.data.message });
     }
