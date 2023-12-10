@@ -35,7 +35,7 @@ export default function UserLogin() {
       password: "",
     },
   });
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
   }
   return (

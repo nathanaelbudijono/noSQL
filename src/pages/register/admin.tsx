@@ -1,6 +1,8 @@
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
+import * as React from "react";
+
 import Button from "@/components/buttons/button";
 import Seo from "@/components/core/seo";
 import Typography from "@/components/core/typography";
@@ -15,14 +17,22 @@ import * as z from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navbar from "@/modules/navbar";
+import { useAppStore } from "@/lib/store";
 
 export default function AdminLogin() {
+  const { registerAdmin, errorMessage } = useAppStore();
+  const router = useRouter();
+  const [error, setError] = React.useState("");
+
   const FormSchema = z.object({
     username: z.string().min(2, {
       message: "Username must be at least 2 characters.",
     }),
     password: z.string().min(2, {
       message: "Password must be at least 2 characters.",
+    }),
+    confirmPassword: z.string().min(2, {
+      message: "Confirm Password must be at least 2 characters.",
     }),
   });
 
@@ -31,10 +41,18 @@ export default function AdminLogin() {
     defaultValues: {
       username: "",
       password: "",
+      confirmPassword: "",
     },
   });
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    if (data.password === data.confirmPassword) {
+      await registerAdmin(data.username, data.password);
+      if (!errorMessage) {
+        router.push("http://localhost:3000/login/user");
+      } else return;
+    } else {
+      setError("Confirm password failed!");
+    }
   }
   return (
     <main className="relative">
@@ -75,6 +93,25 @@ export default function AdminLogin() {
                   )}
                 />
               </div>
+
+              <div className="grid grid-cols-2 max-sm:grid-cols-1 max-sm:gap-2 items-center">
+                <Typography variant="p" color="white">
+                  Konfirmasi Password
+                </Typography>
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <PasswordInput
+                      placeholder="Enter your password confirmation."
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+              <Typography variant="small" color="danger">
+                {error}
+              </Typography>
               <div className="justify-end flex mt-3">
                 <Button
                   type="submit"

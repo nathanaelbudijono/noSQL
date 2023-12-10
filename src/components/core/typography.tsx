@@ -96,7 +96,7 @@ const Typography: TypographyComponent = React.forwardRef(
               "text-primary [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)]",
             ],
             color === "muted" && ["text-typography-500 "],
-            color === "danger" && ["text-d-200"],
+            color === "danger" && ["text-red-400"],
             color === "ready" && ["text-ready-500"],
           ],
 
