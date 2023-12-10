@@ -23,7 +23,8 @@ export default async function userHandler(
           const user = await User.create({
             user: username,
             password: hashPassword,
-            profile: null,
+            role: "user",
+            profile: [],
             purchases: [],
           });
           return res.status(200).json({ user });
@@ -32,7 +33,6 @@ export default async function userHandler(
         console.error("Error creating user:", err);
         return res.status(500).json({ message: "Internal Server Error" });
       }
-      break;
     default:
       return res.status(405).json({ message: "Method not allowed" });
   }
