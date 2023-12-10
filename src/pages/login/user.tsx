@@ -1,4 +1,3 @@
-import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
 import Button from "@/components/buttons/button";
@@ -17,10 +16,12 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ArrowLink from "@/components/links/arrow-link";
 import Navbar from "@/modules/navbar";
-import { useAppStore } from "@/lib/store";
+
+import axios from "axios";
+import { nextAPIUrl } from "@/constant/env";
+import { toast } from "react-toastify";
 
 export default function UserLogin() {
-  const { loginUser, errorMessage } = useAppStore();
   const router = useRouter();
   const FormSchema = z.object({
     username: z.string().min(2, {
@@ -39,9 +40,21 @@ export default function UserLogin() {
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    await loginUser(data.username, data.password);
-    if (!errorMessage) {
-      router.push("/");
+    let username = data.username;
+    let password = data.password;
+    try {
+      const res = await axios.post(`${nextAPIUrl}/login/user`, {
+        username,
+        password,
+      });
+      console.log(res);
+      if (res.status === 200) {
+        router.push("/");
+      } else {
+        return;
+      }
+    } catch (err) {
+      toast.error("Invalid username/password.");
     }
   }
   return (
