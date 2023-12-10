@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
 
 import * as React from "react";
 
@@ -18,10 +17,11 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navbar from "@/modules/navbar";
 import { useAppStore } from "@/lib/store";
+import { toast } from "react-toastify";
 
 export default function AdminLogin() {
   const { registerAdmin, errorMessage } = useAppStore();
-  const router = useRouter();
+
   const [error, setError] = React.useState("");
 
   const FormSchema = z.object({
@@ -48,7 +48,7 @@ export default function AdminLogin() {
     if (data.password === data.confirmPassword) {
       await registerAdmin(data.username, data.password);
       if (!errorMessage) {
-        router.push("http://localhost:3000/login/user");
+        toast.success("Sign up Success");
       } else return;
     } else {
       setError("Confirm password failed!");

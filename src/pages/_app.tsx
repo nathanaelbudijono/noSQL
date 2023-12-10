@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
+import { ToastContainer } from "react-toastify";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -16,6 +17,18 @@ export default function App({ Component, pageProps }: AppProps) {
             showOnShallow={true}
           />
           <Component {...pageProps} />
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+          />
         </main>
       </ThemeProvider>
     </SidebarProvider>
