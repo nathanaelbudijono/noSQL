@@ -12,6 +12,8 @@ export default async function userLoginHandler(
   res: NextApiResponse
 ) {
   const { username, password } = req.body;
+  const token = req.cookies.token as string;
+
   switch (req.method) {
     case "POST":
       try {
@@ -51,6 +53,32 @@ export default async function userLoginHandler(
       } catch (err) {
         console.error("Error logging in:", err);
         return res.status(500).json({ message: "Internal Server Error!" });
+      }
+      break;
+    case "GET":
+      try {
+        if (token) {
+          const userToken = await new Promise((resolve, reject) => {
+            jwt.verify(
+              token.substring(1, token.length - 1),
+              process.env.NEXT_PUBLIC_TOKEN_SECRET as string,
+              {},
+              (err, token) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve(token);
+                }
+              }
+            );
+          });
+          return res.status(200).json({ userToken });
+        } else {
+          return res.status(401).json({ message: "Unauthorized" });
+        }
+      } catch (err) {
+        console.error("Error getting user:", err);
+        return res.status(500).json({ message: "Internal Server Error" });
       }
     default:
       return res.status(405).json({ message: "Method not allowed!" });

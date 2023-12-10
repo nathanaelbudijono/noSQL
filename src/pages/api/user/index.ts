@@ -2,6 +2,7 @@ import { User } from "@/models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import { connectToDatabase } from "@/lib/connection";
+import jwt from "jsonwebtoken";
 
 connectToDatabase();
 
@@ -12,6 +13,7 @@ export default async function userHandler(
   res: NextApiResponse
 ) {
   const { username, password } = req.body;
+  const token = req.cookies.token as string;
   switch (req.method) {
     case "POST":
       try {
@@ -33,6 +35,7 @@ export default async function userHandler(
         console.error("Error creating user:", err);
         return res.status(500).json({ message: "Internal Server Error" });
       }
+      break;
     default:
       return res.status(405).json({ message: "Method not allowed" });
   }
