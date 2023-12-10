@@ -21,7 +21,9 @@ const TypographyColor = [
   "muted",
   "danger",
   "ready",
-  "gradient",
+  "green",
+  "white",
+  "primary",
 ] as const;
 
 type TypographyProps<T extends React.ElementType> = {
@@ -56,10 +58,10 @@ const Typography: TypographyComponent = React.forwardRef(
         className={cn(
           [
             variant === "h1" && [
-              "scroll-m-20 text-4xl font-[600] tracking-tight max-md:text-3xl",
+              "scroll-m-20 text-[43px] leading-8 font-[600] tracking-tight max-md:text-3xl",
             ],
             variant === "h2" && [
-              "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0 ",
+              "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors",
             ],
             variant === "h3" && [
               "scroll-m-20 text-2xl font-semibold tracking-tight",
@@ -77,7 +79,7 @@ const Typography: TypographyComponent = React.forwardRef(
             variant === "large" && ["text-lg font-semibold"],
             variant === "lead" && ["text-xl"],
             variant === "small" && [
-              "text-sm font-[400] leading-none max-sm:text-xs",
+              "text-sm font-[400] leading-5 max-sm:text-xs",
             ],
             variant === "small2" && [
               "text-[16px] font-[400] leading-8 max-sm:text-xs text-typography-200 dark:text-typography-800",
@@ -85,15 +87,15 @@ const Typography: TypographyComponent = React.forwardRef(
             variant === "muted" && ["text-sm text-typography-500"],
           ],
           [
+            color === "white" && ["text-white"],
+            color === "primary" && ["text-shade-500"],
             color === "default" && [
-              "text-typography-100 dark:text-typography-800",
+              "text-typography-800 dark:text-typography-800",
             ],
-            color === "gradient" && [
-              "bg-gradient-to-r from-primary-400 to-primary-100 bg-clip-text text-transparent dark:from-tertiary-400 dark:to-tertiary-300",
+            color === "green" && [
+              "text-primary [text-shadow:_0_1px_0_rgb(0_0_0_/_60%)]",
             ],
-            color === "muted" && [
-              "text-typography-300 dark:text-typography-600 leading-[16px]",
-            ],
+            color === "muted" && ["text-typography-500 "],
             color === "danger" && ["text-d-200"],
             color === "ready" && ["text-ready-500"],
           ],

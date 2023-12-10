@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@hookform/resolvers": "^3.3.2",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.6",
+    "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.6",
     "@types/node": "20.5.4",
     "@types/react": "18.2.21",
@@ -37,7 +40,9 @@
     "react-slick": "^0.29.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "z": "^1.0.9",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/howler": "^2.2.11",

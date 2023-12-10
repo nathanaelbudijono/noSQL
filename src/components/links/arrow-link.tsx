@@ -28,7 +28,7 @@ export default function ArrowLink<C extends React.ElementType>({
         className
       )}
     >
-      <span>{children}</span>
+      <span className="text-info text-sm">{children}</span>
       <svg
         viewBox="0 0 16 16"
         height="12px"
@@ -36,7 +36,7 @@ export default function ArrowLink<C extends React.ElementType>({
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={cn(
-          "relative text-color-100 dark:text-typography-800",
+          "relative text-info",
           "transition-transform duration-200",
           direction === "right" ? "motion-safe:-translate-x-1" : "rotate-180",
           "group-hover:translate-x-0"
