@@ -17,7 +17,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navbar from "@/modules/navbar";
 import { useAppStore } from "@/lib/store";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function AdminLogin() {
   const { registerAdmin, errorMessage } = useAppStore();
@@ -125,6 +125,18 @@ export default function AdminLogin() {
           </Form>
         </section>
       </Layout>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </main>
   );
 }
