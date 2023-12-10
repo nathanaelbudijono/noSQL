@@ -1,5 +1,4 @@
 import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/router";
 
 import * as React from "react";
 
@@ -7,7 +6,7 @@ import Button from "@/components/buttons/button";
 import Seo from "@/components/core/seo";
 import Typography from "@/components/core/typography";
 import Layout from "@/components/layout/layout";
-import UnstyledLink from "@/components/links/unstyled-link";
+
 import {
   FormField,
   Form,
@@ -25,10 +24,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ArrowLink from "@/components/links/arrow-link";
 import Navbar from "@/modules/navbar";
 import { useAppStore } from "@/lib/store";
+import { toast } from "react-toastify";
 
 export default function UserRegister() {
   const { registerUser, errorMessage } = useAppStore();
-  const router = useRouter();
   const [error, setError] = React.useState("");
 
   const FormSchema = z.object({
@@ -55,7 +54,7 @@ export default function UserRegister() {
     if (data.password === data.confirmPassword) {
       await registerUser(data.username, data.password);
       if (!errorMessage) {
-        router.push("http://localhost:3000/login/user");
+        toast.success("Sign up success!");
       } else return;
     } else {
       setError("Confirm password failed!");
