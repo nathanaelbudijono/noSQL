@@ -1,26 +1,33 @@
 import Typography from "@/components/core/typography";
-// import Input from "@/components/forms/input";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+
+import * as z from "zod";
 
 import { CiInstagram, CiTwitter, CiYoutube } from "react-icons/ci";
 import { FaWhatsapp } from "react-icons/fa";
 import { FaPaperPlane } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormField } from "@/components/forms/form";
+import { Input } from "@/components/forms/input";
 
 const icons = [CiInstagram, CiTwitter, CiYoutube, FaWhatsapp];
 
-// type Inputs = {
-//   input: string;
-// };
-
 export default function Footer() {
-  // const methods = useForm<Inputs>({
-  //   mode: "onTouched",
-  // });
-  // const { handleSubmit, reset, clearErrors } = methods;
-  // const onSubmit: SubmitHandler<Inputs> = async (data) => {
-  //   console.log(data);
-  //   return;
-  // };
+  const FormSchema = z.object({
+    email: z.string().min(5, {
+      message: "email must be at least 2 characters.",
+    }),
+  });
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    console.log(data);
+  }
   return (
     <main className="bg-secondary mt-10">
       <footer className="max-md:px-6 text-center py-10 mt-5 max-w-4xl mx-auto">
@@ -88,15 +95,27 @@ export default function Footer() {
             <Typography variant="large" className="text-white">
               Stay up to date
             </Typography>
-            {/* <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
-              <FormProvider {...methods}>
-                <Input
-                  id="input"
-                  placeholder={"Your email address."}
-                  rightNode={<FaPaperPlane className="text-lg" />}
-                />
-              </FormProvider>
-            </form> */}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="flex flex-col gap-3 mt-3"
+              >
+                <div className="relative">
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <Input
+                        placeholder="Enter your email"
+                        className="bg-neutral-600 text-typography-600"
+                        {...field}
+                      />
+                    )}
+                  />
+                  <FaPaperPlane className="text-black absolute inset-y-0 translate-y-2 right-0 flex items-center pr-3 text-2xl" />
+                </div>
+              </form>
+            </Form>
           </div>
           {/* ----------#End region input#---------- */}
         </section>
