@@ -74,7 +74,7 @@ export default async function userLoginHandler(
           });
           return res.status(200).json({ userToken });
         } else {
-          return res.status(401).json({ message: "Unauthorized" });
+          return;
         }
       } catch (err) {
         console.error("Error getting user:", err);
