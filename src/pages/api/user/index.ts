@@ -36,25 +36,6 @@ export default async function userHandler(
         return res.status(500).json({ message: "Internal Server Error" });
       }
       break;
-    case "GET":
-      try {
-        if (token) {
-          jwt.verify(
-            token.substring(1, token.length - 1),
-            process.env.NEXT_PUBLIC_TOKEN_SECRET as string,
-            {},
-            (err, token) => {
-              if (err) {
-                throw err;
-              } else {
-                res.json(token);
-              }
-            }
-          );
-        } else {
-          res.status(401).json({ message: "Unauthorized" });
-        }
-      } catch (err) {}
     default:
       return res.status(405).json({ message: "Method not allowed" });
   }
