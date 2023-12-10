@@ -3,12 +3,15 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SidebarProvider>
       <ThemeProvider attribute="class" defaultTheme="light">
-        <main className="bg-gradient-to-b from-secondary-600 to-secondary-500 dark:from-quaternary-300 dark:to-quaternary-100">
+        <main className="bg-neutral-700">
           <NextNProgress
             color="#29D"
             startPosition={0.3}
@@ -17,6 +20,18 @@ export default function App({ Component, pageProps }: AppProps) {
           />
           <Component {...pageProps} />
         </main>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
       </ThemeProvider>
     </SidebarProvider>
   );

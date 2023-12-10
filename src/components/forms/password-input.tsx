@@ -1,112 +1,43 @@
-import clsx from "clsx";
-import get from "lodash.get";
+"use client";
+
+import cn from "@/type/clsxm";
 import * as React from "react";
-import { RegisterOptions, useFormContext } from "react-hook-form";
-import { IconType } from "react-icons";
-import Typography from "../core/typography";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-export type InputProps = {
-  label?: string | null;
-  id: string;
-  placeholder?: string;
-  helperText?: string;
-  type?: React.HTMLInputTypeAttribute;
-  readOnly?: boolean;
-  hideError?: boolean;
-  validation?: RegisterOptions;
-  leftIcon?: IconType | string;
-  leftIconLabel?: IconType | string;
+import { IoEyeOffOutline } from "react-icons/io5";
+import { IoMdEye } from "react-icons/io";
 
-  containerClassName?: string;
-} & React.ComponentPropsWithoutRef<"input">;
+export interface passwordInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-export default function PasswordInput({
-  label,
-  placeholder = " ",
-  helperText,
-  id,
-  type = "text",
-  disabled,
-  readOnly = false,
-  hideError = false,
-  validation,
-  leftIcon: LeftIcon,
-  leftIconLabel: LeftIconLabel,
-
-  containerClassName,
-  ...rest
-}: InputProps) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-  const error = get(errors, id);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const togglePassword = () => setShowPassword((prev) => !prev);
-  return (
-    <div className={containerClassName}>
-      {label && (
-        <div className="bg-d-600 flex w-fit px-3 py-1 border border-d-600 rounded-t-lg gap-2 items-center dark:bg-n-300 dark:border-n-200">
-          {LeftIconLabel && <LeftIconLabel className="text-color-100" />}
-          <Typography as="label" variant="p" className="block" htmlFor={id}>
-            {label}
-          </Typography>
-        </div>
-      )}
-      <div className={clsx("relative")}>
-        {LeftIcon && (
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            {typeof LeftIcon === "string" ? (
-              <Typography variant="p">{LeftIcon}</Typography>
-            ) : (
-              <LeftIcon className="text-d-600 dark:text-color-100" />
-            )}
-          </div>
-        )}
-
+const PasswordInput = React.forwardRef<HTMLInputElement, passwordInputProps>(
+  ({ className, type, ...props }, ref) => {
+    const [showPassword, setShowPassword] = React.useState(false);
+    const togglePassword = () => setShowPassword((prev) => !prev);
+    return (
+      <div className="relative ">
         <input
-          {...register(id, validation)}
-          {...rest}
           type={showPassword ? "text" : "password"}
-          name={id}
-          id={id}
-          readOnly={readOnly}
-          disabled={disabled}
-          className={clsx(
-            "flex w-full  shadow-sm dark:bg-slate-700",
-            label ? "rounded-tr-lg rounded-bl-lg rounded-br-lg" : "rounded-lg",
-            "py-2 px-2",
-            "border-gray-300",
-            (readOnly || disabled) &&
-              "cursor-not-allowed border-gray-300 bg-d-400 focus:border-gray-300 focus:ring-0 dark:bg-gray-400",
-            error && "border-red-500 focus:border-red-500 focus:ring-red-500",
-            LeftIcon && "pl-9"
+          className={cn(
+            "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            className
           )}
-          placeholder={placeholder}
-          aria-describedby={id}
+          ref={ref}
+          {...props}
         />
 
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-d-600">
-          <button type="button" onClick={togglePassword}>
+        <div className=" absolute inset-y-0 right-0 flex items-center pr-3 z-[100]">
+          <button onClick={togglePassword}>
             {showPassword ? (
-              <AiFillEye className="cursor-pointer dark:text-color-100" />
+              <IoEyeOffOutline className="text-black" />
             ) : (
-              <AiFillEyeInvisible className="cursor-pointer dark:text-color-100" />
+              <IoMdEye className="text-black" />
             )}
           </button>
         </div>
       </div>
-      {helperText && (
-        <Typography variant="small" className="mt-2">
-          {helperText}
-        </Typography>
-      )}
-      {!hideError && error && (
-        <Typography variant="small" color="danger" className="mt-2">
-          {error?.message?.toString()}
-        </Typography>
-      )}
-    </div>
-  );
-}
+    );
+  }
+);
+PasswordInput.displayName = "PasswordInput";
+
+export { PasswordInput };
