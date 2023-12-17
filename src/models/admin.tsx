@@ -1,7 +1,14 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface adminInterface extends Document {
-  admin: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  dob: string;
+  address: string;
+  subdistrict: string;
+  city: string;
   password: string;
   wallet: number;
   role: string;
@@ -10,9 +17,16 @@ export interface adminInterface extends Document {
 
 const AdminSchema = new Schema<adminInterface>(
   {
-    admin: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: true },
+    dob: { type: String, required: true },
+    address: { type: String, required: true },
+    subdistrict: { type: String, required: true },
+    city: { type: String, required: true },
     password: { type: String, required: true },
-    wallet: { type: Number, default: 0 },
+    wallet: { type: Number, required: true },
     role: { type: String, default: "admin" },
     createdAt: { type: Date, default: Date.now },
   },
@@ -23,4 +37,3 @@ const AdminSchema = new Schema<adminInterface>(
 
 export const Admin =
   mongoose.models.Admin || mongoose.model<adminInterface>("Admin", AdminSchema);
-

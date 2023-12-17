@@ -12,21 +12,12 @@ export interface Admin {
 
 export interface AdminState {
   admins: Admin | null;
-  registerAdmin: (username: string, password: string) => Promise<void>;
   getAdminInfo: () => Promise<void>;
   errorMessageAdmin: string;
 }
 
 export const adminSlice: StateCreator<AdminState> = (set, get) => ({
   admins: null,
-  registerAdmin: async (username: string, password: string) => {
-    try {
-      set({ errorMessageAdmin: "" });
-      await axios.post(`${nextAPIUrl}/admin`, { username, password });
-    } catch (err: any) {
-      set({ errorMessageAdmin: err.response.data.message });
-    }
-  },
   getAdminInfo: async () => {
     try {
       const adminInfo = await axios.get(`${nextAPIUrl}/admin`);

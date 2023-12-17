@@ -1,4 +1,4 @@
-import Button from "@/components/buttons/button";
+import { Button } from "@/components/buttons/button";
 import Typography from "@/components/core/typography";
 import Layout from "@/components/layout/layout";
 
@@ -30,7 +30,7 @@ export default function Product() {
                   {item?.desc}
                 </Typography>
                 <div>
-                  <Button variant="primary" className="px-6">
+                  <Button variant="default" className="px-6">
                     Add to Cart
                   </Button>
                 </div>

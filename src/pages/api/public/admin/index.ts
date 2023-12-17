@@ -11,11 +11,11 @@ export default async function userLoginHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   switch (req.method) {
     case "POST":
       try {
-        const userDoc = await Admin.findOne({ admin: username });
+        const userDoc = await Admin.findOne({ email: email });
         const correctPassword = await bcrypt.compare(
           password,
           userDoc.password
@@ -23,7 +23,7 @@ export default async function userLoginHandler(
         if (correctPassword) {
           const token = await new Promise((resolve, reject) => {
             jwt.sign(
-              { admin: username, role: userDoc.role },
+              { email: email, role: userDoc.role, id: userDoc._id },
               process.env.NEXT_PUBLIC_TOKEN_SECRET as string,
               {},
               (err, token) => {
