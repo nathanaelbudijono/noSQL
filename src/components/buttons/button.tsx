@@ -1,140 +1,55 @@
-import cn from "@/type/clsxm";
 import * as React from "react";
-import { IconType } from "react-icons";
-import { ImSpinner2 } from "react-icons/im";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import cn from "@/type/clsxm";
 
-const ButtonVariant = ["primary", "outline", "ghost", "warning"] as const;
-const ButtonSize = ["sm", "base", "lg"] as const;
-
-type ButtonProps = {
-  isLoading?: boolean;
-  variant?: (typeof ButtonVariant)[number];
-  size?: (typeof ButtonSize)[number];
-  leftIcon?: IconType;
-  rightIcon?: IconType;
-  leftIconClassName?: string;
-  rightIconClassName?: string;
-} & React.ComponentPropsWithRef<"button">;
-
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      className,
-      disabled: buttonDisabled,
-      isLoading,
-      variant = "primary",
-      size = "base",
-      leftIcon: LeftIcon,
-      rightIcon: RightIcon,
-      leftIconClassName,
-      rightIconClassName,
-      ...rest
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
     },
-    ref
-  ) => {
-    const disabled = isLoading || buttonDisabled;
-
-    return (
-      <button
-        ref={ref}
-        type="button"
-        disabled={disabled}
-        className={cn(
-          "inline-flex items-center justify-center rounded-lg ",
-          "focus:outline-none focus-visible:ring",
-          "shadow-sm",
-          "transition-colors duration-100",
-          "disabled:bg-d-200 disabled:border-0",
-          //#region  //*=========== Size ===========
-          [
-            size === "lg" && ["px-3 py-2.5"],
-            size === "base" && ["px-2.5 py-2"],
-            size === "sm" && ["px-2 py-1.5"],
-          ],
-          //#endregion  //*======== Size ===========
-          //#region  //*=========== Variants ===========
-          [
-            variant === "primary" && [
-              "bg-primary text-neutral-700",
-              "hover:bg-shade-200",
-            ],
-
-            variant === "warning" && [
-              "bg-amber-500 text-white",
-              "border border-amber-500",
-              "hover:bg-amber-600 hover:text-color-100",
-              "active:bg-amber-700",
-              "disabled:bg-amber-600",
-            ],
-            variant === "outline" && [
-              "bg-clip-padding backdrop-filter backdrop-blur-sm border border-d-400 text-color-100",
-              "hover:bg-d-400 hover:text-typography-800 active:bg-typo-divider disabled:bg-typo-divider",
-              "dark:hover:bg-n-400 dark:border-n-500",
-            ],
-            variant === "ghost" && [
-              "shadow-none text-primary",
-              "hover:bg-neutral-700",
-            ],
-          ],
-          //#endregion  //*======== Variants ===========
-          "disabled:cursor-not-allowed",
-          isLoading &&
-            "relative text-transparent transition-none hover:text-transparent disabled:cursor-wait",
-          className
-        )}
-        {...rest}
-      >
-        {isLoading && (
-          <div
-            className={cn(
-              "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-              {
-                "text-white": [
-                  "primary",
-                  "secondary",
-                  "danger",
-                  "warning",
-                ].includes(variant),
-                "text-primary-500": ["outline", "ghost"].includes(variant),
-              }
-            )}
-          >
-            <ImSpinner2 className="animate-spin" />
-          </div>
-        )}
-        {LeftIcon && (
-          <div
-            className={cn([
-              size === "lg" && "mr-3",
-              size === "base" && "mr-2",
-              size === "sm" && "mr-1",
-            ])}
-          >
-            <LeftIcon
-              size="1em"
-              className={cn("text-base", leftIconClassName)}
-            />
-          </div>
-        )}
-        {children}
-        {RightIcon && (
-          <div
-            className={cn([
-              size === "lg" && "ml-3",
-              size === "base" && "ml-2",
-              size === "sm" && "ml-1",
-            ])}
-          >
-            <RightIcon
-              size="1em"
-              className={cn("text-base", rightIconClassName)}
-            />
-          </div>
-        )}
-      </button>
-    );
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
   }
 );
 
-export default Button;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button";
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

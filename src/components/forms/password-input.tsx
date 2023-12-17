@@ -1,36 +1,37 @@
-"use client";
-
 import cn from "@/type/clsxm";
 import * as React from "react";
 
-import { IoEyeOffOutline } from "react-icons/io5";
-import { IoMdEye } from "react-icons/io";
-
-export interface passwordInputProps
+import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const PasswordInput = React.forwardRef<HTMLInputElement, passwordInputProps>(
+const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
-    const [showPassword, setShowPassword] = React.useState(false);
-    const togglePassword = () => setShowPassword((prev) => !prev);
+    const [showText, setShowText] = React.useState<boolean>(false);
+    const toggleText = () => {
+      setShowText(!showText);
+    };
     return (
-      <div className="relative ">
+      <div className="relative">
         <input
-          type={showPassword ? "text" : "password"}
+          type={showText ? "text" : "password"}
           className={cn(
-            "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "flex h-10 w-full rounded-md border border-input bg-white border-primary px-3 py-2 text-sm text-typography-800",
+            "ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium",
+            "placeholder:text-muted-foreground",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-50",
             className
           )}
           ref={ref}
           {...props}
         />
-
         <div className=" absolute inset-y-0 right-0 flex items-center pr-3 z-[100]">
-          <button onClick={togglePassword}>
-            {showPassword ? (
-              <IoEyeOffOutline className="text-black" />
+          <button onClick={toggleText} type="button">
+            {showText ? (
+              <IoEyeOffOutline className="text-typography-800" />
             ) : (
-              <IoMdEye className="text-black" />
+              <IoEyeOutline className="text-typography-800" />
             )}
           </button>
         </div>

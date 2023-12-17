@@ -21,6 +21,7 @@ export default async function userLoginHandler(
           password,
           userDoc.password
         );
+        console.log(correctPassword);
         if (correctPassword) {
           const token = await new Promise((resolve, reject) => {
             jwt.sign(

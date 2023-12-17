@@ -1,6 +1,8 @@
-import cn from "@/type/clsxm";
-import * as PopoverPrimitive from "@radix-ui/react-popover";
+"use client";
+
 import * as React from "react";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import cn from "@/type/clsxm";
 
 const Popover = PopoverPrimitive.Root;
 
@@ -16,8 +18,7 @@ const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 w-72 rounded-lg border bg-color-100 p-4 shadow-md outline-none",
-        "animate-in data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2 data-[side=right]:slide-in-from-left-2 data-[side=left]:slide-in-from-right-2",
+        "z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
         className
       )}
       {...props}
@@ -26,12 +27,4 @@ const PopoverContent = React.forwardRef<
 ));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
 
-const PopoverClose = React.forwardRef<
-  React.ElementRef<typeof PopoverPrimitive.Close>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Close>
->(({ className, ...props }, ref) => (
-  <PopoverPrimitive.Close ref={ref} className={cn("", className)} {...props} />
-));
-PopoverClose.displayName = PopoverPrimitive.Content.displayName;
-
-export { Popover, PopoverClose, PopoverContent, PopoverTrigger };
+export { Popover, PopoverTrigger, PopoverContent };

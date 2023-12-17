@@ -1,22 +1,26 @@
 import * as React from "react";
 import { clsx } from "clsx";
-import Button from "@/components/buttons/button";
+import { Button } from "@/components/buttons/button";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppStore } from "@/lib/store";
 import Typography from "@/components/core/typography";
 
 import { FaUserCircle } from "react-icons/fa";
+import { nextAPIUrl } from "@/constant/env";
+import axios from "axios";
 
 export default function Navbar() {
-  const { users, logout, admins } = useAppStore();
+  const { users, admins } = useAppStore();
 
   const pathname = usePathname();
   const router = useRouter();
 
   async function LogoutSystem() {
-    await logout();
-    window.location.reload();
+    const res = await axios.post(`${nextAPIUrl}/public/logout`);
+    if (res.status === 200) {
+      router.push("http://localhost:3000");
+    }
   }
   if (users?.userToken || admins?.adminToken) {
     return (
@@ -37,7 +41,7 @@ export default function Navbar() {
                   </Typography>
                   <b>$0</b>
                 </div>
-                <Button variant="primary" onClick={LogoutSystem}>
+                <Button variant="default" onClick={LogoutSystem}>
                   Sign Out
                 </Button>
                 <FaUserCircle className="text-xl" />
@@ -67,7 +71,7 @@ export default function Navbar() {
                   Login
                 </Button>
                 <Button
-                  variant="primary"
+                  variant="default"
                   onClick={() => router.push("/register/user")}
                 >
                   Sign up
