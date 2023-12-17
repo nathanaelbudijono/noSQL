@@ -7,12 +7,7 @@ import Seo from "@/components/core/seo";
 import Typography from "@/components/core/typography";
 import Layout from "@/components/layout/layout";
 
-import {
-  FormField,
-  Form,
-  FormItem,
-  FormMessage,
-} from "@/components/forms/form";
+import { FormField, Form, FormItem } from "@/components/forms/form";
 import { Input } from "@/components/forms/input";
 import { PasswordInput } from "@/components/forms/password-input";
 
@@ -81,7 +76,6 @@ export default function UserRegister() {
                   render={({ field }) => (
                     <FormItem>
                       <Input placeholder="Enter your username" {...field} />
-                      <FormMessage />
                     </FormItem>
                   )}
                 />

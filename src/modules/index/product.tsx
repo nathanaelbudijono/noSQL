@@ -7,7 +7,7 @@ export default function Product() {
     <>
       {Products.map((item, index) => {
         return (
-          <Layout className="h-[40vh] mt-10 max-sm:h-full">
+          <Layout className="h-[40vh] mt-10 max-sm:h-full" key={index}>
             <section
               className={
                 index % 2 !== 0

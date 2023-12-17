@@ -15,8 +15,12 @@ import * as z from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Navbar from "@/modules/navbar";
+import { nextAPIUrl } from "@/constant/env";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function AdminLogin() {
+  const router = useRouter();
   const FormSchema = z.object({
     username: z.string().min(2, {
       message: "Username must be at least 2 characters.",
@@ -33,11 +37,28 @@ export default function AdminLogin() {
       password: "",
     },
   });
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    const username = data.username;
+    const password = data.password;
+    try {
+      const res = await axios.post(`${nextAPIUrl}/login/admin`, {
+        username,
+        password,
+      });
+      console.log(res);
+      if (res.status === 200) {
+        router.push("http://localhost:3000/admin");
+      } else {
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+      toast.error("Invalid username/password.");
+    }
   }
   return (
     <main className="relative">
+      <Seo title="Login Admin" />
       <Navbar />
       <Seo title="Login" />
       <Layout className="justify-center items-center flex-col h-screen relative">

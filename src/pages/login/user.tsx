@@ -1,4 +1,3 @@
-import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 
 import Button from "@/components/buttons/button";
@@ -18,7 +17,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ArrowLink from "@/components/links/arrow-link";
 import Navbar from "@/modules/navbar";
 
+import axios from "axios";
+import { nextAPIUrl } from "@/constant/env";
+import { toast } from "react-toastify";
+
 export default function UserLogin() {
+  const router = useRouter();
   const FormSchema = z.object({
     username: z.string().min(2, {
       message: "Username must be at least 2 characters.",
@@ -36,10 +40,26 @@ export default function UserLogin() {
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    let username = data.username;
+    let password = data.password;
+    try {
+      const res = await axios.post(`${nextAPIUrl}/login/user`, {
+        username,
+        password,
+      });
+
+      if (res.status === 200) {
+        router.push("/");
+      } else {
+        return;
+      }
+    } catch (err) {
+      toast.error("Invalid username/password.");
+    }
   }
   return (
     <main className="relative">
+      <Seo title="Login" />
       <Navbar />
       <Seo title="Login" />
       <Layout className="justify-center items-center flex-col h-screen relative">
