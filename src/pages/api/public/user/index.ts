@@ -2,7 +2,6 @@ import { User } from "@/models/user";
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import { connectToDatabase } from "@/lib/connection";
-import jwt from "jsonwebtoken";
 
 connectToDatabase();
 
