@@ -2,16 +2,15 @@ import { StateCreator } from "zustand";
 import axios from "axios";
 import { nextAPIUrl } from "@/constant/env";
 
-export interface Admin {
-  adminToken: {
-    user: string;
-    role: string;
-    iat: number;
-  };
+export interface adminType {
+  id: string;
+  role: string;
+  iat: number;
+  email: string;
 }
 
 export interface AdminState {
-  admins: Admin | null;
+  admins: adminType | null;
   getAdminInfo: () => Promise<void>;
   errorMessageAdmin: string;
 }
