@@ -11,22 +11,26 @@ export default async function userHandler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { username, password } = req.body;
-  const token = req.cookies.token as string;
+  const userData = req.body;
   switch (req.method) {
     case "POST":
       try {
-        const userExists = await User.findOne({ user: username });
+        const userExists = await User.findOne({ user: userData.email });
         if (userExists) {
-          return res.status(400).json({ message: "User already exists!" });
+          return res.status(400).json({ message: "Email already exists!" });
         } else {
-          const hashPassword = await bcrypt.hash(password, salt);
+          const hashPassword = await bcrypt.hash(userData.password, salt);
           const user = await User.create({
-            user: username,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            phoneNumber: userData.phoneNumber,
+            dob: userData.dob,
+            address: userData.address,
+            subdistrict: userData.subdistrict,
+            city: userData.city,
             password: hashPassword,
             role: "user",
-            profile: [],
-            purchases: [],
           });
           return res.status(200).json({ user });
         }
