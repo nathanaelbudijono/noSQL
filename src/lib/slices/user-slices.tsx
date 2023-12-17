@@ -2,17 +2,15 @@ import { StateCreator } from "zustand";
 import axios from "axios";
 import { nextAPIUrl } from "@/constant/env";
 
-export interface User {
-  userToken: {
-    email: string;
-    role: string;
-    id: string;
-    iat: number;
-  };
+export interface userType {
+  email: string;
+  role: string;
+  id: string;
+  iat: number;
 }
 
 export interface UserState {
-  users: User | null;
+  users: userType | null;
   getUserInfo: () => Promise<void>;
   errorMessage: string;
 }

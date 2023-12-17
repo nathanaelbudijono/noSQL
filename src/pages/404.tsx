@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/layout";
 import Typography from "@/components/core/typography";
-import ButtonLink from "@/components/links/button-links";
 
 export default function Notfound() {
   return (
@@ -8,9 +7,6 @@ export default function Notfound() {
       <Typography variant="p">
         Oops, looks like you wondered to the wrong place.
       </Typography>
-      <ButtonLink href="/" variant="primary">
-        Return Home
-      </ButtonLink>
     </Layout>
   );
 }

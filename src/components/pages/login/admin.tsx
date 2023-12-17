@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import Typography from "@/components/core/typography";
 import { Input } from "@/components/forms/input";
 import { PasswordInput } from "@/components/forms/password-input";
-import ArrowLink from "@/components/links/arrow-link";
 import { Button } from "@/components/buttons/button";
 import {
   Form,
@@ -19,6 +18,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/forms/form";
+import Link from "next/link";
 export default function LoginAsAdmin() {
   const router = useRouter();
   const FormSchema = z.object({
@@ -110,12 +110,9 @@ export default function LoginAsAdmin() {
       </section>
       <div className="flex items-center gap-1 mt-3">
         <span className="text-sm">Belum punya akun?</span>
-        <ArrowLink
-          href="localhost:3000/register/admin"
-          className="text-neutral-400"
-        >
+        <Link href="localhost:3000/register/admin" className="text-neutral-400">
           Register disini.
-        </ArrowLink>
+        </Link>
       </div>
     </main>
   );
