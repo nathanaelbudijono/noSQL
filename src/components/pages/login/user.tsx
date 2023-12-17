@@ -48,7 +48,8 @@ export default function Userlogin() {
         password,
       });
       if (res.status === 200) {
-        router.push(`${nextUrl}/user/dashboard`);
+        // router.push(`${nextUrl}/user/dashboard`);
+        console.log("yes");
       } else {
         return;
       }
