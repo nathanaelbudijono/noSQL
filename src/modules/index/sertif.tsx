@@ -13,7 +13,7 @@ export default function Sertifikasi() {
         </Typography>
         <section className="grid grid-cols-3 max-sm:grid-cols-1 gap-4 mt-10">
           {Sertifikat.map((item) => (
-            <div className="flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center gap-1" key={item?.title}>
               <img src={item?.image} className="w-16 mb-3 object-cover" />
               <Typography variant="large" color="primary">
                 {item?.title}

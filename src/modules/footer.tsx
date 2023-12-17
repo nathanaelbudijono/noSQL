@@ -64,6 +64,7 @@ export default function Footer() {
                   variant="small"
                   color="muted"
                   className="text-white mb-1"
+                  key={item?.links}
                 >
                   {item?.links}
                 </Typography>
@@ -81,6 +82,7 @@ export default function Footer() {
                   variant="small"
                   color="muted"
                   className="text-white mb-1"
+                  key={item?.links}
                 >
                   {item?.links}
                 </Typography>

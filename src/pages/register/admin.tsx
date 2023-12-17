@@ -20,7 +20,7 @@ import { useAppStore } from "@/lib/store";
 import { toast } from "react-toastify";
 
 export default function AdminLogin() {
-  const { registerAdmin, errorMessage } = useAppStore();
+  const { registerAdmin, errorMessageAdmin } = useAppStore();
 
   const [error, setError] = React.useState("");
 
@@ -47,8 +47,8 @@ export default function AdminLogin() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (data.password === data.confirmPassword) {
       await registerAdmin(data.username, data.password);
-      if (!errorMessage) {
-        toast.success("Sign up Success");
+      if (!errorMessageAdmin) {
+        toast.success("Sign up success!");
       } else return;
     } else {
       setError("Confirm password failed!");
@@ -56,6 +56,7 @@ export default function AdminLogin() {
   }
   return (
     <main className="relative">
+      <Seo title="Register Admin" />
       <Navbar />
       <Seo title="Login" />
       <Layout className="justify-center items-center flex-col h-screen relative">
@@ -118,7 +119,7 @@ export default function AdminLogin() {
                   variant="primary"
                   className="bg-neutral-400 whitespace-nowrap hover:bg-neutral-500"
                 >
-                  Sign in
+                  Sign Up
                 </Button>
               </div>
             </form>
