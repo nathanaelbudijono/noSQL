@@ -1,20 +1,26 @@
+"use client";
+
 import * as React from "react";
 import { clsx } from "clsx";
 import { Button } from "@/components/buttons/button";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useAppStore } from "@/lib/store";
 import Typography from "@/components/core/typography";
 
 import { FaUserCircle } from "react-icons/fa";
 import { nextAPIUrl } from "@/constant/env";
 import axios from "axios";
 
-export default function Navbar() {
-  const { users, admins } = useAppStore();
+interface navbarType {
+  id: string;
+  role: string;
+}
 
+export default function Navbar({ id, role }: navbarType) {
   const pathname = usePathname();
   const router = useRouter();
+
+  console.log(id, role);
 
   async function LogoutSystem() {
     const res = await axios.post(`${nextAPIUrl}/public/logout`);
@@ -22,7 +28,7 @@ export default function Navbar() {
       router.push("http://localhost:3000");
     }
   }
-  if (users?.userToken || admins?.adminToken) {
+  if (role === "user") {
     return (
       <main className={clsx("max-md:px-6 sticky top-0 z-10", "bg-neutral-600")}>
         <section className="max-w-4xl mx-auto">

@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import Typography from "@/components/core/typography";
 import { Input } from "@/components/forms/input";
 import { PasswordInput } from "@/components/forms/password-input";
-import ArrowLink from "@/components/links/arrow-link";
 import { Button } from "@/components/buttons/button";
 import {
   Form,
@@ -22,6 +21,7 @@ import {
 } from "@/components/forms/form";
 
 import { ImSpinner2 } from "react-icons/im";
+import Link from "next/link";
 
 export default function Userlogin() {
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
@@ -48,8 +48,7 @@ export default function Userlogin() {
         password,
       });
       if (res.status === 200) {
-        // router.push(`${nextUrl}/user/dashboard`);
-        console.log("yes");
+        router.push(`${nextUrl}/user/dashboard`);
       } else {
         return;
       }
@@ -122,12 +121,9 @@ export default function Userlogin() {
       </section>
       <div className="flex items-center gap-1 mt-3">
         <span className="text-sm">Belum punya akun?</span>
-        <ArrowLink
-          href="localhost:3000/register/user"
-          className="text-neutral-400"
-        >
+        <Link href="localhost:3000/register/user" className="text-neutral-400">
           Register disini.
-        </ArrowLink>
+        </Link>
       </div>
     </main>
   );

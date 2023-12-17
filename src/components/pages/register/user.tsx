@@ -307,12 +307,9 @@ export default function UserRegister() {
       </section>
       <div className="flex items-center gap-1 mt-3 z-10">
         <span className="text-sm">Sudah punya akun?</span>
-        <ArrowLink
-          href="localhost:3000/register/user"
-          className="text-neutral-400"
-        >
+        <Link href="localhost:3000/register/user" className="text-neutral-400">
           Login disini.
-        </ArrowLink>
+        </Link>
       </div>
     </main>
   );

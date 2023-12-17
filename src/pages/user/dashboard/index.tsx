@@ -7,7 +7,6 @@ import UserDashboard from "@/components/pages/user/dashboard";
 
 const UserDashboardPage = () => {
   const { getUserInfo, users } = useAppStore();
-
   React.useEffect(() => {
     getUserInfo();
   }, []);
