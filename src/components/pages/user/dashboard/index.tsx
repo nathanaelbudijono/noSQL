@@ -1,6 +1,6 @@
 const UserDashboard = () => {
   return (
-    <main>
+    <main className="h-screen">
       <h1>test</h1>
     </main>
   );

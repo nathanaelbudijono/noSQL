@@ -17,10 +17,7 @@ import {
 import Typography from "@/components/core/typography";
 import { Input } from "@/components/forms/input";
 import { PasswordInput } from "@/components/forms/password-input";
-import ArrowLink from "@/components/links/arrow-link";
 import { Button } from "@/components/buttons/button";
-import { useAppStore } from "@/lib/store";
-import React from "react";
 import {
   Popover,
   PopoverContent,
@@ -30,6 +27,7 @@ import cn from "@/type/clsxm";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/forms/calendar";
+import Link from "next/link";
 export default function UserRegister() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
