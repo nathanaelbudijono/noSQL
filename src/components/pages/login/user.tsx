@@ -1,10 +1,11 @@
 import * as z from "zod";
+import * as React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { nextAPIUrl } from "@/constant/env";
+import { nextAPIUrl, nextUrl } from "@/constant/env";
 import { toast } from "react-toastify";
 import Typography from "@/components/core/typography";
 import { Input } from "@/components/forms/input";
@@ -20,7 +21,10 @@ import {
   FormMessage,
 } from "@/components/forms/form";
 
+import { ImSpinner2 } from "react-icons/im";
+
 export default function Userlogin() {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const router = useRouter();
   const FormSchema = z.object({
     email: z.string().min(2, {
@@ -38,18 +42,20 @@ export default function Userlogin() {
     let email = data.email;
     let password = data.password;
     try {
+      setIsLoading(true);
       const res = await axios.post(`${nextAPIUrl}/public/user/login`, {
         email,
         password,
       });
-
       if (res.status === 200) {
-        router.push("/");
+        router.push(`${nextUrl}/user/dashboard`);
       } else {
         return;
       }
     } catch (err) {
       toast.error("Invalid email/password.");
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -78,6 +84,8 @@ export default function Userlogin() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>Enter your registered email</FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -97,13 +105,15 @@ export default function Userlogin() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>Enter your password</FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />
 
             <div className="justify-end flex mt-3">
               <Button type="submit" variant="default">
-                Sign in
+                {isLoading ? <ImSpinner2 className="animate-spin" /> : "Log in"}
               </Button>
             </div>
           </form>
