@@ -30,6 +30,7 @@ export interface CartState {
   updateQuantity: (id: string, action: "increase" | "decrease") => void;
   showCart: boolean;
   toggleCart: () => void;
+  isLoading: boolean;
 }
 
 export const cartSlice: StateCreator<CartState> = (set, get) => ({
@@ -38,9 +39,14 @@ export const cartSlice: StateCreator<CartState> = (set, get) => ({
   count: 0,
   getItem: async () => {
     try {
+      set({ isLoading: true });
       const res = await fetch(`${nextAPIUrl}/public/user/product`);
       set({ productItem: await res.json() });
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    } finally {
+      set({ isLoading: false });
+    }
   },
   addToCart: (product: cartType) => {
     const cart = get().cart;
@@ -78,4 +84,5 @@ export const cartSlice: StateCreator<CartState> = (set, get) => ({
   toggleCart: () => {
     set({ showCart: !get().showCart });
   },
+  isLoading: false,
 });
