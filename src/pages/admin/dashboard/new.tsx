@@ -1,7 +1,7 @@
 import Seo from "@/components/core/seo";
 import Layout from "@/components/layout/layout";
 import CreateItemDashboard from "@/components/pages/admin/dashboard/new";
-import { adminType } from "@/lib/slices/admin-slices";
+import { adminType } from "@/lib/slices/role/admin-slices";
 import { validateAdmin } from "@/lib/validation/validation-admin";
 import Footer from "@/modules/footer";
 import Navbar from "@/modules/navbar";

@@ -19,6 +19,7 @@ import Typography from "@/components/core/typography";
 import AdminDashboardModule from "@/modules/admin/dashboard";
 import { useAppStore } from "@/lib/store";
 import AdminProductTable from "@/modules/admin/dashboard/table";
+// import TransactionTab from "@/modules/admin/dashboard/transaction";
 
 interface AdminDashboardProps {
   id: string;
@@ -36,9 +37,10 @@ const AdminDashboard = ({ id, role, email }: AdminDashboardProps) => {
   return (
     <main className="h-full">
       <Tabs defaultValue="dashboard" className="w-full">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="product">Products</TabsTrigger>
+          <TabsTrigger value="transaction">Transactions</TabsTrigger>
         </TabsList>
         <TabsContent value="dashboard">
           <Card>
@@ -68,6 +70,21 @@ const AdminDashboard = ({ id, role, email }: AdminDashboardProps) => {
             <CardContent className="space-y-2">
               {/* @ts-ignore */}
               <AdminProductTable product={product} />
+            </CardContent>
+            <CardFooter></CardFooter>
+          </Card>
+        </TabsContent>
+        <TabsContent value="transaction">
+          <Card>
+            <CardHeader>
+              <CardTitle>Transaction</CardTitle>
+              <CardDescription>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Praesent interdum, felis fringilla imperdiet sagittis.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              {/* <TransactionTab /> */}
             </CardContent>
             <CardFooter></CardFooter>
           </Card>

@@ -10,7 +10,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { nextAPIUrl } from "@/constant/env";
 import axios from "axios";
 
-import { LogOut, Settings, User } from "lucide-react";
+import { LogOut, Settings, User, LayoutDashboard } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -22,6 +22,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/core/dropdown-menu";
+import Typography from "@/components/core/typography";
 
 interface navbarType {
   id: string;
@@ -103,50 +104,55 @@ export default function Navbar({ id, role }: navbarType) {
             <Link href={"/"}>
               <img src="/image/GloWhite.png" className="h-12" />
             </Link>
-            {pathname.startsWith("/login") ||
-            pathname.startsWith("/register") ? (
-              ""
-            ) : (
-              <div className="flex gap-4 items-center">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost">
-                      <FaUserCircle />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 bg-white">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem className="hover:bg-primary/90">
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Profile</span>
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem className="hover:bg-primary/90">
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Settings</span>
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    <DropdownMenuSeparator />
+            {/* // ----- # Start Region menubar # ----- // */}
+            <div>
+              <Link href={"/admin/dashboard"}>
+                <Button variant="ghost" className="flex gap-1">
+                  <LayoutDashboard />
+                  <Typography variant="small">Dashboard</Typography>
+                </Button>
+              </Link>
+            </div>
+            {/* // ----- # Start Region Profile # ----- // */}
+            <div className="flex gap-4 items-center">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <FaUserCircle />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-white">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem className="hover:bg-primary/90">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                      <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                    </DropdownMenuItem>
 
                     <DropdownMenuItem className="hover:bg-primary/90">
-                      <button
-                        className="flex items-center"
-                        onClick={LogoutSystem}
-                      >
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>Log out</span>
-                      </button>
-
-                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                      <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            )}
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem className="hover:bg-primary/90">
+                    <button
+                      className="flex items-center"
+                      onClick={LogoutSystem}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </button>
+
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </section>
       </main>

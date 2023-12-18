@@ -58,12 +58,6 @@ export default function CreateItemDashboard({ email }: { email: string }) {
   }
   return (
     <>
-      <div>
-        <Button variant="default" className="mb-5">
-          <Link href={`${nextUrl}/admin/dashboard`}>Return</Link>
-        </Button>
-      </div>
-
       <main className="px-6 py-4 shadow-lg border border-neutral-500 rounded-md">
         <Typography variant="h3">Create new Product</Typography>
         <Typography variant="small">

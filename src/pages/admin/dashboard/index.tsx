@@ -3,7 +3,7 @@ import * as React from "react";
 import Seo from "@/components/core/seo";
 import Layout from "@/components/layout/layout";
 import AdminDashboard from "@/components/pages/admin/dashboard";
-import { adminType } from "@/lib/slices/admin-slices";
+import { adminType } from "@/lib/slices/role/admin-slices";
 import { useAppStore } from "@/lib/store";
 import { validateAdmin } from "@/lib/validation/validation-admin";
 import Footer from "@/modules/footer";
