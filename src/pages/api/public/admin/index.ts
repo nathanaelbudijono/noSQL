@@ -7,7 +7,7 @@ import { serialize } from "cookie";
 
 connectToDatabase();
 
-export default async function userLoginHandler(
+export default async function Handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

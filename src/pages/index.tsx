@@ -8,16 +8,26 @@ import Product from "@/components/pages/index/product";
 import Footer from "@/modules/footer";
 import { validateHome } from "@/lib/validation/validation-home";
 import { GetServerSidePropsContext } from "next";
-import { userType } from "@/lib/slices/user-slices";
+import { userType } from "@/lib/slices/role/user-slices";
+import { useAppStore } from "@/lib/store";
 
 export default function Home({ user }: { user: userType }) {
+  const { getItem, productItem, cart } = useAppStore();
+
+  React.useEffect(() => {
+    getItem();
+  }, []);
+
+  console.log("my cart", cart);
+
   return (
     <main>
       <Seo />
       <Navbar id={user?.id} role={user?.role} />
       <Hero />
       <Sertifikasi />
-      <Product />
+      {/* @ts-ignore */}
+      <Product role={user?.role} />
       <Footer />
     </main>
   );

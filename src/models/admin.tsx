@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
+import { Product } from "./product";
 
 export interface adminInterface extends Document {
   firstName: string;
@@ -12,6 +13,7 @@ export interface adminInterface extends Document {
   password: string;
   wallet: number;
   role: string;
+  product: Types.ObjectId[];
   createdAt: Date;
 }
 
@@ -28,6 +30,7 @@ const AdminSchema = new Schema<adminInterface>(
     password: { type: String, required: true },
     wallet: { type: Number, required: true },
     role: { type: String, default: "admin" },
+    product: [{ type: Schema.Types.ObjectId, ref: "Product" }],
     createdAt: { type: Date, default: Date.now },
   },
   {

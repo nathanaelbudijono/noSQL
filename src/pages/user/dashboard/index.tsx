@@ -6,7 +6,7 @@ import { useAppStore } from "@/lib/store";
 import UserDashboard from "@/components/pages/user/dashboard";
 import { GetServerSidePropsContext } from "next";
 import { validateHome } from "@/lib/validation/validation-home";
-import { userType } from "@/lib/slices/user-slices";
+import { userType } from "@/lib/slices/role/user-slices";
 import Navbar from "@/modules/navbar";
 import Footer from "@/modules/footer";
 

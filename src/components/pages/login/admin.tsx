@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { nextAPIUrl } from "@/constant/env";
+import { nextAPIUrl, nextUrl } from "@/constant/env";
 import { toast } from "react-toastify";
 import Typography from "@/components/core/typography";
 import { Input } from "@/components/forms/input";
@@ -23,7 +23,7 @@ export default function LoginAsAdmin() {
   const router = useRouter();
   const FormSchema = z.object({
     email: z.string().min(2, {
-      message: "email must be filled.",
+      message: "Email must be filled.",
     }),
     password: z.string().min(2, {
       message: "Password must be filled.",
@@ -37,18 +37,18 @@ export default function LoginAsAdmin() {
     let email = data.email;
     let password = data.password;
     try {
-      const res = await axios.post(`${nextAPIUrl}/public/user/login`, {
+      const res = await axios.post(`${nextAPIUrl}/public/admin`, {
         email,
         password,
       });
 
       if (res.status === 200) {
-        router.push("/");
+        router.push(`${nextUrl}/admin/dashboard`);
       } else {
         return;
       }
     } catch (err) {
-      toast.error("Invalid email/password.");
+      toast.error("Internal server error.");
     }
   }
   return (
@@ -77,6 +77,8 @@ export default function LoginAsAdmin() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>Enter your email address.</FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -96,6 +98,8 @@ export default function LoginAsAdmin() {
                       {...field}
                     />
                   </FormControl>
+                  <FormDescription>Enter your password.</FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />

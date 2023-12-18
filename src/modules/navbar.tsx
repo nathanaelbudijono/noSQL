@@ -5,11 +5,24 @@ import { clsx } from "clsx";
 import { Button } from "@/components/buttons/button";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import Typography from "@/components/core/typography";
 
 import { FaUserCircle } from "react-icons/fa";
 import { nextAPIUrl } from "@/constant/env";
 import axios from "axios";
+
+import { LogOut, Settings, User, LayoutDashboard } from "lucide-react";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "@/components/core/dropdown-menu";
+import Typography from "@/components/core/typography";
 
 interface navbarType {
   id: string;
@@ -20,14 +33,13 @@ export default function Navbar({ id, role }: navbarType) {
   const pathname = usePathname();
   const router = useRouter();
 
-  console.log(id, role);
-
   async function LogoutSystem() {
     const res = await axios.post(`${nextAPIUrl}/public/logout`);
     if (res.status === 200) {
       router.push("http://localhost:3000");
     }
   }
+
   if (role === "user") {
     return (
       <main className={clsx("max-md:px-6 sticky top-0 z-10", "bg-neutral-600")}>
@@ -41,18 +53,106 @@ export default function Navbar({ id, role }: navbarType) {
               ""
             ) : (
               <div className="flex gap-4 items-center">
-                <div className="flex gap-2 items-center">
-                  <Typography variant="small" className="text-primary">
-                    Saldo
-                  </Typography>
-                  <b>$0</b>
-                </div>
-                <Button variant="default" onClick={LogoutSystem}>
-                  Sign Out
-                </Button>
-                <FaUserCircle className="text-xl" />
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost">
+                      <FaUserCircle />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56 bg-white">
+                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem className="hover:bg-primary/90">
+                        <User className="mr-2 h-4 w-4" />
+                        <span>Profile</span>
+                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem className="hover:bg-primary/90">
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>Settings</span>
+                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem className="hover:bg-primary/90">
+                      <button
+                        className="flex items-center"
+                        onClick={LogoutSystem}
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>Log out</span>
+                      </button>
+
+                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             )}
+          </div>
+        </section>
+      </main>
+    );
+  } else if (role === "admin") {
+    return (
+      <main className={clsx("max-md:px-6 sticky top-0 z-10", "bg-neutral-600")}>
+        <section className="max-w-4xl mx-auto">
+          <div className="flex justify-between items-center py-4">
+            <Link href={"/"}>
+              <img src="/image/GloWhite.png" className="h-12" />
+            </Link>
+            {/* // ----- # Start Region menubar # ----- // */}
+            <div>
+              <Link href={"/admin/dashboard"}>
+                <Button variant="ghost" className="flex gap-1">
+                  <LayoutDashboard />
+                  <Typography variant="small">Dashboard</Typography>
+                </Button>
+              </Link>
+            </div>
+            {/* // ----- # Start Region Profile # ----- // */}
+            <div className="flex gap-4 items-center">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost">
+                    <FaUserCircle />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-white">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem className="hover:bg-primary/90">
+                      <User className="mr-2 h-4 w-4" />
+                      <span>Profile</span>
+                      <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem className="hover:bg-primary/90">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                      <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem className="hover:bg-primary/90">
+                    <button
+                      className="flex items-center"
+                      onClick={LogoutSystem}
+                    >
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </button>
+
+                    <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
         </section>
       </main>

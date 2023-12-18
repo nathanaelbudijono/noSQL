@@ -49,6 +49,8 @@ module.exports = {
         "action-200": "#E53835",
         "action-300": "#2E7D31",
 
+        accent: "#ABBED1",
+
         primary: "#4CAF4F",
         secondary: "#263238",
         info: "#2194f3",
