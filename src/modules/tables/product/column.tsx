@@ -162,7 +162,6 @@ const DeleteButton = ({
             </Button>
           </DialogTrigger>
           <Button
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onClick={confirmDelete}
             className="bg-red-500 hover:bg-red-500/80"
             disabled={isDeleting}
