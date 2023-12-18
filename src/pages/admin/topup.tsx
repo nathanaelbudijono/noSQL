@@ -24,7 +24,7 @@ export default function Topup() {
   ];
   return (
     <>
-      <Navbar />
+      <Navbar id={"role"} />
       <main className=" items-center justify-center max-w-2xl mx-auto mt-5 ">
         <section className="bg-secondary px-24 py-10 rounded-xl ">
           <h1 className="text-3xl text-typography-100 mb-7 font-semibold">
@@ -33,7 +33,7 @@ export default function Topup() {
           <section className="grid grid-cols-3 gap-10 mb-7 justify-center">
             {saldo.map((item) => (
               <button className="border-2 border-black w-full rounded-md px-5 py-2 text-typography-700 bg-typography-100">
-                Rp{item.jumlah}
+                {item.jumlah}
               </button>
             ))}
           </section>
