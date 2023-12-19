@@ -56,20 +56,22 @@ export default function Navbar({ id, role }: navbarType) {
             <Link href={"/"}>
               <img src="/image/GloWhite.png" className="h-12" />
             </Link>
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
               <Link
                 href={`${nextUrl}/user/dashboard/cart`}
                 className="flex items-center hover:bg-accent px-2 py-1 rounded-md ease-in-out relative"
               >
-                <span className="text-xs absolute top-0 right-0 w-4 h-4 bg-accent rounded-full flex items-center justify-center">
-                  {count > 0 && count}
-                </span>
+                {count > 0 && (
+                  <span className="text-xs absolute top-0 right-0 w-4 h-4 bg-accent rounded-full flex items-center justify-center">
+                    {count}
+                  </span>
+                )}
+
                 <ShoppingCart />
               </Link>
               <Link href={"/user/dashboard"}>
-                <Button variant="ghost" className="flex gap-1">
+                <Button variant="ghost">
                   <LayoutDashboard />
-                  <Typography variant="small">Dashboard</Typography>
                 </Button>
               </Link>
             </div>
@@ -89,9 +91,14 @@ export default function Navbar({ id, role }: navbarType) {
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
                       <DropdownMenuItem className="hover:bg-primary/90">
-                        <User className="mr-2 h-4 w-4" />
-                        <span>Profile</span>
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                        <Link
+                          href={`${nextUrl}/user/dashboard/profile/${id}`}
+                          className="flex gap-1 items-center"
+                        >
+                          <User className="mr-2 h-4 w-4" />
+                          <span>Profile</span>
+                        </Link>
+                        <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
                       </DropdownMenuItem>
 
                       <DropdownMenuItem className="hover:bg-primary/90">

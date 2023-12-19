@@ -58,10 +58,10 @@ const Typography: TypographyComponent = React.forwardRef(
         className={cn(
           [
             variant === "h1" && [
-              "scroll-m-20 text-[43px] leading-8 font-[600] tracking-tight max-md:text-3xl",
+              "scroll-m-20 text-[43px]  leading-8 font-[600] tracking-tight max-md:text-3xl max-sm:text-2xl",
             ],
             variant === "h2" && [
-              "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors",
+              "scroll-m-20 pb-2 text-3xl font-semibold tracking-tight",
             ],
             variant === "h3" && [
               "scroll-m-20 text-2xl font-semibold tracking-tight",
