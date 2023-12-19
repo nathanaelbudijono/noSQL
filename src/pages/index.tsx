@@ -26,8 +26,9 @@ export default function Home({ user }: { user: userType }) {
       <Navbar id={user?.id} role={user?.role} />
       <Hero />
       <Sertifikasi />
-      {/* @ts-ignore */}
+
       <Product role={user?.role} />
+
       <Footer />
     </main>
   );

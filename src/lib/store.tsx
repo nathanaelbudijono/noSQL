@@ -7,26 +7,26 @@ import { persist } from "zustand/middleware";
 
 type storeState = UserState & AdminState & ProductState & CartState;
 
-// export const useAppStore = create<storeState>()((...a) => ({
-//   ...userSlice(...a),
-//   ...adminSlice(...a),
-//   ...productSlice(...a),
-//   ...cartSlice(...a),
-// }));
+export const useAppStore = create<storeState>()((...a) => ({
+  ...userSlice(...a),
+  ...adminSlice(...a),
+  ...productSlice(...a),
+  ...cartSlice(...a),
+}));
 
-export const useAppStore = create<storeState>()(
-  persist(
-    (...a) => ({
-      ...productSlice(...a),
-      ...cartSlice(...a),
-      ...userSlice(...a),
-      ...adminSlice(...a),
-    }),
-    {
-      name: "store",
-    }
-  )
-);
+// export const useAppStore = create<storeState>()(
+//   persist(
+//     (...a) => ({
+//       ...productSlice(...a),
+//       ...cartSlice(...a),
+//       ...userSlice(...a),
+//       ...adminSlice(...a),
+//     }),
+//     {
+//       name: "store",
+//     }
+//   )
+// );
 
 export const useCart = () => useAppStore((state) => state.cart);
 export const useProducts = () => useAppStore((state) => state.productItem);
