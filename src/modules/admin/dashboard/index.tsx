@@ -1,5 +1,9 @@
 import StatementChart from "@/components/core/chart";
+import { Skeleton } from "@/components/core/skeleton";
 import Typography from "@/components/core/typography";
+import { adminProfileType } from "@/lib/slices/role/admin-slices";
+import { useAppStore } from "@/lib/store";
+import { Layout } from "lucide-react";
 import { FaMoneyBillWave } from "react-icons/fa6";
 
 export type Day = "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun";
@@ -9,7 +13,35 @@ export interface DailyAmount {
   amount: number;
 }
 
-export default function AdminDashboardModule() {
+export default function AdminDashboardModule({
+  adminProfile,
+}: {
+  adminProfile: adminProfileType;
+}) {
+  const quickData = [
+    {
+      title: "Total Revenue",
+
+      value: adminProfile?.adminDoc?.wallet || 0,
+      description: "Lorem ipsum dolor si amet",
+    },
+    {
+      title: "Total items",
+      // @ts-ignore
+      value: adminProfile?.adminDoc?.product.length || 0,
+      description: "Lorem ipsum dolor si amet",
+    },
+    {
+      title: "Subscribers",
+      value: 1,
+      description: "Lorem ipsum dolor si amet",
+    },
+    {
+      title: "Total Sales Today",
+      value: adminProfile?.adminDoc?.wallet || 0,
+      description: "Lorem ipsum dolor si amet",
+    },
+  ];
   return (
     <main>
       <section className="grid grid-cols-4 gap-2">
@@ -161,28 +193,5 @@ const barData = [
   {
     day: "Sun",
     amount: 250000,
-  },
-];
-
-const quickData = [
-  {
-    title: "Total Revenue",
-    value: 413210,
-    description: "Lorem ipsum dolor si amet",
-  },
-  {
-    title: "Total items",
-    value: 153,
-    description: "Lorem ipsum dolor si amet",
-  },
-  {
-    title: "Subscribers",
-    value: 1,
-    description: "Lorem ipsum dolor si amet",
-  },
-  {
-    title: "Total Sales Today",
-    value: 12313,
-    description: "Lorem ipsum dolor si amet",
   },
 ];

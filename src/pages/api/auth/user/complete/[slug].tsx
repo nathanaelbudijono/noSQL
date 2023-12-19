@@ -7,7 +7,6 @@ connectToDatabase();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { slug } = req.query;
-  console.log(slug);
   switch (req.method) {
     case "GET":
       try {

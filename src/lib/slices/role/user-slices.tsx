@@ -7,6 +7,7 @@ export interface userType {
   role: string;
   id: string;
   iat: number;
+  image: string;
 }
 
 export interface userCompleteType {
@@ -22,6 +23,7 @@ export interface userCompleteType {
   subdistrict: string;
   city: string;
   role: string;
+  createdAt: string;
 }
 
 export interface UserState {

@@ -21,13 +21,15 @@ import { Button } from "../../../components/buttons/button";
 import { Input } from "../../../components/forms/input";
 import Link from "next/link";
 import Typography from "@/components/core/typography";
+import { NextURL } from "next/dist/server/web/next-url";
+import { nextUrl } from "@/constant/env";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTableTransaction<TData, TValue>({
+export function DataTableCart<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -47,24 +49,11 @@ export function DataTableTransaction<TData, TValue>({
   });
 
   React.useEffect(() => {
-    table.setPageSize(3);
+    table.setPageSize(5);
   }, [table]);
 
   return (
     <main>
-      <section className=" flex justify-between">
-        <div className="flex items-center mb-5">
-          <Input
-            placeholder="Search by email..."
-            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-            onChange={(event) =>
-              table.getColumn("email")?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
-        </div>
-      </section>
-
       <div className="rounded-md border border-neutral-600">
         <Table>
           <TableHeader>
@@ -111,7 +100,14 @@ export function DataTableTransaction<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  <div>
+                    <Typography variant="small" className="semibold">
+                      Your cart is empty.
+                    </Typography>
+                    <Button variant="default" className="mt-2">
+                      <Link href={`${nextUrl}`}>Go shopping</Link>
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             )}

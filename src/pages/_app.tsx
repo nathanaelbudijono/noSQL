@@ -1,4 +1,3 @@
-import { SidebarProvider } from "@/hooks/useSidebar";
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
@@ -9,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SidebarProvider>
+    <main>
       <ThemeProvider attribute="class" defaultTheme="light">
         <main className="bg-neutral-700">
           <NextNProgress
@@ -33,6 +32,6 @@ export default function App({ Component, pageProps }: AppProps) {
           theme="colored"
         />
       </ThemeProvider>
-    </SidebarProvider>
+    </main>
   );
 }

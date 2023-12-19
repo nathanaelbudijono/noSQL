@@ -5,10 +5,10 @@ import Layout from "@/components/layout/layout";
 import { useAppStore } from "@/lib/store";
 import UserDashboard from "@/components/pages/user/dashboard";
 import { GetServerSidePropsContext } from "next";
-import { validateHome } from "@/lib/validation/validation-home";
 import { userType } from "@/lib/slices/role/user-slices";
 import Navbar from "@/modules/navbar";
 import Footer from "@/modules/footer";
+import { validateUser } from "@/lib/validation/validation-user";
 
 const UserDashboardPage = ({ user }: { user: userType }) => {
   const { getUserInfo, getUserComplete, userComplete } = useAppStore();
@@ -19,7 +19,7 @@ const UserDashboardPage = ({ user }: { user: userType }) => {
   return (
     <main>
       <Seo templateTitle="Dashboard" />
-      <Navbar id={user?.id} role={user?.role} />
+      <Navbar id={user?.id} role={user?.role} image={user?.image} />
       <Layout className="flex flex-col">
         {/* @ts-ignore */}
         <UserDashboard userComplete={userComplete} />
@@ -32,5 +32,5 @@ const UserDashboardPage = ({ user }: { user: userType }) => {
 export default UserDashboardPage;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  return await validateHome(ctx);
+  return await validateUser(ctx);
 }

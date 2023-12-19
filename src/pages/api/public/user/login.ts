@@ -25,7 +25,12 @@ export default async function userLoginHandler(
         if (correctPassword) {
           const token = await new Promise((resolve, reject) => {
             jwt.sign(
-              { email: email, role: userDoc.role, id: userDoc._id },
+              {
+                email: email,
+                role: userDoc.role,
+                id: userDoc._id,
+                image: userDoc.imageURL,
+              },
               process.env.NEXT_PUBLIC_TOKEN_SECRET as string,
               {},
               (err, token) => {

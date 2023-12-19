@@ -5,11 +5,11 @@ import Layout from "@/components/layout/layout";
 import ProfileUser from "@/components/pages/user/dashboard/profile";
 import { userType } from "@/lib/slices/role/user-slices";
 import { useAppStore } from "@/lib/store";
-import { validateHome } from "@/lib/validation/validation-home";
 import Footer from "@/modules/footer";
 import Navbar from "@/modules/navbar";
 import { GetServerSidePropsContext } from "next";
-import { Skeleton } from "@/components/core/skeleton";
+
+import { validateUser } from "@/lib/validation/validation-user";
 
 export default function UseProfilePage({ user }: { user: userType }) {
   const { getUserComplete, userComplete } = useAppStore();
@@ -20,7 +20,7 @@ export default function UseProfilePage({ user }: { user: userType }) {
   return (
     <main>
       <Seo templateTitle="Profile" />
-      <Navbar id={user?.id} role={user?.role} />
+      <Navbar id={user?.id} role={user?.role} image={user?.image} />
       <Layout className="flex flex-scol">
         {/* @ts-ignore */}
         <ProfileUser id={user?.id} userComplete={userComplete} />
@@ -31,5 +31,5 @@ export default function UseProfilePage({ user }: { user: userType }) {
 }
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  return await validateHome(ctx);
+  return await validateUser(ctx);
 }

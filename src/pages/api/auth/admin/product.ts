@@ -3,13 +3,13 @@ import { Product } from "@/models/product";
 import { NextApiRequest, NextApiResponse } from "next";
 import { connectToDatabase } from "@/lib/connection";
 import tokenMiddleware from "@/lib/middleware/token-middleware";
+import { ItemsCart } from "@/models/itemsCart";
 
 connectToDatabase();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { email, name, description, price, rating, image_url, quantity } =
     req.body;
-  console.log(req.body);
   switch (req.method) {
     case "PUT":
       try {

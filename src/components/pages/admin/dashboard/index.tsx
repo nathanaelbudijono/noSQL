@@ -19,6 +19,10 @@ import Typography from "@/components/core/typography";
 import AdminDashboardModule from "@/modules/admin/dashboard";
 import { useAppStore } from "@/lib/store";
 import AdminProductTable from "@/modules/admin/dashboard/table";
+import { DataTableTransaction } from "@/modules/tables/transaction/data-table";
+import { columns } from "@/modules/tables/transaction/column";
+import Layout from "@/components/layout/layout";
+import { Skeleton } from "@/components/core/skeleton";
 // import TransactionTab from "@/modules/admin/dashboard/transaction";
 
 interface AdminDashboardProps {
@@ -28,12 +32,38 @@ interface AdminDashboardProps {
 }
 
 const AdminDashboard = ({ id, role, email }: AdminDashboardProps) => {
-  const { getProduct, product } = useAppStore();
+  const {
+    getProduct,
+    product,
+    getTransaction,
+    transaction,
+    getAdminProfile,
+    adminProfile,
+    isLoading,
+  } = useAppStore();
 
   React.useEffect(() => {
     getProduct();
+    getTransaction();
+    getAdminProfile();
   }, []);
 
+  console.log(product);
+  if (isLoading) {
+    return (
+      <main className="h-screen w-full">
+        <Layout className="flex flex-col">
+          <Skeleton className="h-[30vh] w-full" />
+          <div className="grid grid-cols-4 max-sm:grid-cols-2 gap-2 mt-3 w-full">
+            <Skeleton className="h-[50vh] w-full" />
+            <Skeleton className="h-[50vh] w-full" />
+            <Skeleton className="h-[50vh] w-full" />
+            <Skeleton className="h-[50vh] w-full" />
+          </div>
+        </Layout>
+      </main>
+    );
+  }
   return (
     <main className="h-full">
       <Tabs defaultValue="dashboard" className="w-full">
@@ -49,7 +79,8 @@ const AdminDashboard = ({ id, role, email }: AdminDashboardProps) => {
               <CardDescription>An overview of GloWhite store.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              <AdminDashboardModule />
+              {/* @ts-ignore */}
+              <AdminDashboardModule adminProfile={adminProfile} />
             </CardContent>
             <CardFooter>
               <Typography variant="small" color="muted">
@@ -84,7 +115,11 @@ const AdminDashboard = ({ id, role, email }: AdminDashboardProps) => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              {/* <TransactionTab /> */}
+              <DataTableTransaction
+                columns={columns}
+                // @ts-ignore
+                data={transaction?.product}
+              />
             </CardContent>
             <CardFooter></CardFooter>
           </Card>

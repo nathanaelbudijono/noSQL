@@ -29,14 +29,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/core/dropdown-menu";
 import Typography from "@/components/core/typography";
-import { useCount } from "@/lib/store";
+import { useAppStore, useCount } from "@/lib/store";
+
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/core/avatar";
 
 interface navbarType {
-  id: string;
-  role: string;
+  id?: string;
+  role?: string;
+  image?: string;
 }
 
-export default function Navbar({ id, role }: navbarType) {
+export default function Navbar({ id, role, image }: navbarType) {
   const pathname = usePathname();
   const router = useRouter();
   const count = useCount();
@@ -57,18 +60,21 @@ export default function Navbar({ id, role }: navbarType) {
               <img src="/image/GloWhite.png" className="h-12" />
             </Link>
             <div className="flex items-center gap-1">
-              <Link
-                href={`${nextUrl}/user/dashboard/cart`}
-                className="flex items-center hover:bg-accent px-2 py-1 rounded-md ease-in-out relative"
-              >
-                {count > 0 && (
-                  <span className="text-xs absolute top-0 right-0 w-4 h-4 bg-accent rounded-full flex items-center justify-center">
-                    {count}
-                  </span>
-                )}
+              {count > 0 && (
+                <Link
+                  href={`${nextUrl}/user/dashboard/cart`}
+                  className="flex items-center hover:bg-accent px-2 py-1 rounded-md ease-in-out relative"
+                >
+                  {count > 0 && (
+                    <span className="text-xs absolute top-0 right-0 w-4 h-4 bg-accent rounded-full flex items-center justify-center">
+                      {count}
+                    </span>
+                  )}
 
-                <ShoppingCart />
-              </Link>
+                  <ShoppingCart />
+                </Link>
+              )}
+
               <Link href={"/user/dashboard"}>
                 <Button variant="ghost">
                   <LayoutDashboard />
@@ -82,9 +88,12 @@ export default function Navbar({ id, role }: navbarType) {
               <div className="flex gap-4 items-center">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost">
-                      <FaUserCircle className="text-lg" />
-                    </Button>
+                    <button>
+                      <Avatar>
+                        <AvatarImage src={image} />
+                        <AvatarFallback>PF</AvatarFallback>
+                      </Avatar>
+                    </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56 bg-white">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -102,8 +111,14 @@ export default function Navbar({ id, role }: navbarType) {
                       </DropdownMenuItem>
 
                       <DropdownMenuItem className="hover:bg-primary/90">
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>Settings</span>
+                        <Link
+                          href={`${nextUrl}/user/dashboard/topup`}
+                          className="flex gap-1 items-center"
+                        >
+                          <span className="mr-2 h-4 w-4">Rp</span>
+                          <span className="translate-y-[1px]">Top up</span>
+                        </Link>
+
                         <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
                       </DropdownMenuItem>
                     </DropdownMenuGroup>

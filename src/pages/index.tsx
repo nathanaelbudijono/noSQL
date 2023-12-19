@@ -12,16 +12,18 @@ import { userType } from "@/lib/slices/role/user-slices";
 import { useAppStore } from "@/lib/store";
 
 export default function Home({ user }: { user: userType }) {
-  const { getItem } = useAppStore();
+  const { getItem, cart } = useAppStore();
 
   React.useEffect(() => {
     getItem();
   }, []);
 
+  console.log(cart);
+
   return (
     <main>
       <Seo />
-      <Navbar id={user?.id} role={user?.role} />
+      <Navbar id={user?.id} role={user?.role} image={user?.image} />
       <Hero role={user?.role} />
       <Sertifikasi />
 

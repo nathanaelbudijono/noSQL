@@ -13,6 +13,10 @@ import { IoIosCheckmark } from "react-icons/io";
 import { userCompleteType } from "@/lib/slices/role/user-slices";
 import { useAppStore } from "@/lib/store";
 import { Skeleton } from "@/components/core/skeleton";
+import UpdatePersonalInfo from "@/modules/user/profile/personal-info";
+import UpdateAddress from "@/modules/user/profile/personal-address";
+import UpdateCredential from "@/modules/user/profile/credential";
+import UpdatePeronalImage from "@/modules/user/profile/image";
 
 export default function ProfileUser({
   id,
@@ -23,7 +27,14 @@ export default function ProfileUser({
 }) {
   const { isLoading } = useAppStore();
   const dob = userComplete?.dob;
-
+  const create = userComplete?.createdAt;
+  const formattedCreate = create
+    ? new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }).format(new Date(dob))
+    : "";
   const formattedDate = dob
     ? new Intl.DateTimeFormat("en-US", {
         year: "numeric",
@@ -93,23 +104,42 @@ export default function ProfileUser({
   return (
     <main className="w-full">
       <section className="bg-gradient-to-r from-neutral-600 to-neutral-500 flex justify-end items-end h-[30vh] py-2 px-5 rounded-md shadow-sm">
-        <Button variant="outline" className="flex gap-1 items-center">
-          <IoIosCheckmark className="text-lg" />
-          Subscribed
-        </Button>
+        <Sheet>
+          <SheetTrigger className="text-sm h-10 px-4 py-2 border border-white rounded-md z-10">
+            Edit Image
+          </SheetTrigger>
+          <SheetContent className="bg-white">
+            <SheetHeader>
+              <SheetTitle>Update your profile picture.</SheetTitle>
+              <SheetDescription>
+                <UpdatePeronalImage userComplete={userComplete} />
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
       </section>
-      <section className="flex gap-10 max-sm:gap-5 max-md:gap-7 items-end -translate-y-[60px] translate-x-5 max-sm:translate-x-0">
+      <section className="flex gap-10 max-sm:gap-5 max-md:gap-7 items-end -translate-y-[60px] max-sm:-translate-y-[50px] translate-x-5 max-sm:translate-x-0">
         <div className="overflow-hidden">
-          <img
-            src="/image/profile.png"
-            alt="profile pricture"
-            className="object-cover w-32"
-          />
+          {userComplete?.imageURL ? (
+            <img
+              src={userComplete?.imageURL}
+              alt="profile pricture"
+              className="object-cover w-32 h-32 rounded-full"
+            />
+          ) : (
+            <img
+              src="/image/profile.png"
+              alt="profile pricture"
+              className="object-cover w-32"
+            />
+          )}
         </div>
         <div>
-          <Typography variant="h2">Ela Nur Aini</Typography>
+          <Typography variant="h2">
+            {userComplete?.firstName} {userComplete?.lastName}
+          </Typography>
           <Typography variant="small" color="muted">
-            Joined since 12 December 2023
+            Joined since {formattedCreate}
           </Typography>
         </div>
       </section>
@@ -118,13 +148,12 @@ export default function ProfileUser({
         <div className="flex justify-between items-center">
           <Typography variant="h3">Personal Information</Typography>
           <Sheet>
-            <SheetTrigger>Edit</SheetTrigger>
+            <SheetTrigger className="text-sm">Edit</SheetTrigger>
             <SheetContent className="bg-white">
               <SheetHeader>
-                <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+                <SheetTitle>Update your personal information</SheetTitle>
                 <SheetDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  <UpdatePersonalInfo userComplete={userComplete} />
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>
@@ -159,13 +188,12 @@ export default function ProfileUser({
         <div className="flex justify-between items-center">
           <Typography variant="h3">Address</Typography>
           <Sheet>
-            <SheetTrigger>Edit</SheetTrigger>
+            <SheetTrigger className="text-sm">Edit</SheetTrigger>
             <SheetContent className="bg-white">
               <SheetHeader>
-                <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+                <SheetTitle>Update your Address.</SheetTitle>
                 <SheetDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  <UpdateAddress userComplete={userComplete} />
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>
@@ -182,26 +210,25 @@ export default function ProfileUser({
         </Typography>
         <Typography variant="small">{userComplete?.address}</Typography>
         <Typography variant="small" className="font-semibold">
-          City
-        </Typography>
-        <Typography variant="small">{userComplete?.city}</Typography>
-        <Typography variant="small" className="font-semibold">
           Subdistrict
         </Typography>
         <Typography variant="small">{userComplete?.subdistrict}</Typography>
+        <Typography variant="small" className="font-semibold">
+          City
+        </Typography>
+        <Typography variant="small">{userComplete?.city}</Typography>
       </section>
       {/* // --- Credentials --- // */}
       <section className="-translate-y-10 mt-5">
         <div className="flex justify-between items-center">
           <Typography variant="h3">Credential</Typography>
           <Sheet>
-            <SheetTrigger>Edit</SheetTrigger>
+            <SheetTrigger className="text-sm">Edit</SheetTrigger>
             <SheetContent className="bg-white">
               <SheetHeader>
-                <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+                <SheetTitle>Update Personal Credential</SheetTitle>
                 <SheetDescription>
-                  This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers.
+                  <UpdateCredential userComplete={userComplete} />
                 </SheetDescription>
               </SheetHeader>
             </SheetContent>

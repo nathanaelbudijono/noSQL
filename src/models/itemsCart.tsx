@@ -1,22 +1,34 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-export interface itemsCartInterface extends Document {
-  user: Schema.Types.ObjectId | object;
-  product: Schema.Types.ObjectId | object;
-  quantity: number;
+export interface ItemsCartInterface extends Document {
+  buyer: string;
+  email: string;
+  purchaseDate: Date;
   totalPrice: number;
   status: string;
-  purchaseDate: Date;
+  cart: Array<{
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+  }>;
 }
 
-const itemsCartSchema = new Schema<itemsCartInterface>(
+const itemsCartSchema = new Schema<ItemsCartInterface>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    product: { type: Schema.Types.ObjectId, ref: "Product", required: true },
-    quantity: { type: Number, required: true },
-    totalPrice: { type: Number, required: true },
-    status: { type: String, required: true },
-    purchaseDate: { type: Date, default: Date.now },
+    buyer: { type: String },
+    email: { type: String },
+    purchaseDate: { type: Date },
+    totalPrice: { type: Number },
+    status: { type: String, default: "pending" },
+    cart: [
+      {
+        id: { type: String },
+        name: { type: String },
+        price: { type: Number },
+        quantity: { type: Number },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -25,4 +37,4 @@ const itemsCartSchema = new Schema<itemsCartInterface>(
 
 export const ItemsCart =
   mongoose.models.ItemsCart ||
-  mongoose.model<itemsCartInterface>("ItemsCart", itemsCartSchema);
+  mongoose.model<ItemsCartInterface>("ItemsCart", itemsCartSchema);

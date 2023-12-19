@@ -6,6 +6,7 @@ export default function AdminProductTable({
 }: {
   product: productType[];
 }) {
+  console.log("my admin product table", product);
   return (
     <main>
       {/* @ts-ignore */}

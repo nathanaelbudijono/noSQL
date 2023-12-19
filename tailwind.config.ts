@@ -46,7 +46,7 @@ module.exports = {
         "neutral-700": "#FFFFFF",
 
         "action-100": "#FBC02D",
-        "action-200": "#E53835",
+        "action-200": "#e52b50",
         "action-300": "#2E7D31",
 
         accent: "#ABBED1",

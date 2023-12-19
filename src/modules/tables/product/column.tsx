@@ -54,7 +54,7 @@ export const columns: ColumnDef<productType>[] = [
     accessorKey: "price",
     header: "Price",
     cell: ({ row }) => {
-      const price = row.original.price;
+      const price = row.original.price || 0;
       return (
         <span>
           {price
@@ -93,9 +93,7 @@ export const columns: ColumnDef<productType>[] = [
               Edit Product
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <DeleteButton name={name} id={id} />
-            </DropdownMenuItem>
+            <DropdownMenuItem>Delete Product</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -27,6 +27,7 @@ import {
 import { MdTableRows } from "react-icons/md";
 import { MdIndeterminateCheckBox } from "react-icons/md";
 import { Skeleton } from "@/components/core/skeleton";
+import IndexCard from "@/modules/user/product/indexCard";
 export default function Product({ role }: { role: string }) {
   const { getItem, isLoading } = useAppStore();
 
@@ -160,6 +161,8 @@ export default function Product({ role }: { role: string }) {
     </div>
   );
 }
+
+//  Unrequired
 function SkeletonIndex({ index }: { index: number }) {
   return (
     <div
@@ -215,7 +218,7 @@ function GridCard({
   const router = useRouter();
   return (
     <main
-      className="bg-white border border-accent shadow-md rounded-lg overflow-hidden h-full"
+      className="bg-white border border-accent shadow-sm rounded-lg overflow-hidden h-full"
       key={index}
     >
       <div className="overflow-hidden h-[250px]">
@@ -268,76 +271,6 @@ function GridCard({
               Add to Cart
             </Button>
           )}
-        </div>
-      </section>
-    </main>
-  );
-}
-
-function IndexCard({
-  product,
-  role,
-  index,
-}: {
-  product: productItemType;
-  role: string;
-  index: number;
-}) {
-  const { addToCart } = useAppStore();
-  const router = useRouter();
-  return (
-    <main
-      className={`${index === 0 ? "mt-3" : "mt-5"} h-[40vh] max-sm:h-full `}
-    >
-      <section
-        className={`flex  ${
-          index === 1 ? "flex-row-reverse" : " "
-        } gap-5 max-sm:flex-col w-full `}
-      >
-        <div className="w-full flex max-sm:justify-center ">
-          <img
-            src={product?.imageURL}
-            className="object-cover rounded-md shadow-md max-sm:h-full"
-            alt="Product photo"
-          />
-        </div>
-        <div className="flex flex-col gap-3">
-          <Typography variant="h3" color="primary">
-            {product.name}
-          </Typography>
-          <Typography variant="small" color="muted">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-            vitae lorem quam. Nulla felis libero, lacinia at est id, tincidunt
-            dignissim turpis. Nam lobortis, nisl ut ultrices vulputate, enim
-            velit congue ante, ut sagittis justo dui ac lectus.
-          </Typography>
-          <div>
-            {role === "user" && (
-              <Button
-                variant="default"
-                onClick={() => {
-                  addToCart(product);
-                }}
-              >
-                Add to Cart
-              </Button>
-            )}
-            {role === "admin" && (
-              <Button variant="default" disabled>
-                Add to Cart
-              </Button>
-            )}
-            {!role && (
-              <Button
-                variant="default"
-                onClick={() => {
-                  router.push(`${nextUrl}/login/user`);
-                }}
-              >
-                Add to Cart
-              </Button>
-            )}
-          </div>
         </div>
       </section>
     </main>

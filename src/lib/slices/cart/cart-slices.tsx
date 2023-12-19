@@ -50,7 +50,7 @@ export const cartSlice: StateCreator<CartState> = (set, get) => ({
   },
   addToCart: (product: cartType) => {
     const cart = get().cart;
-    const findProduct = cart.find((p) => p.id === product.id);
+    const findProduct = cart.find((p) => p.name === product.name);
     if (findProduct) {
       findProduct.quantity! += 1;
     } else {
@@ -63,7 +63,7 @@ export const cartSlice: StateCreator<CartState> = (set, get) => ({
   },
   updateQuantity: (id: string, action: "increase" | "decrease") => {
     const cart = get().cart;
-    const findProduct = cart.find((item) => item.id === id);
+    const findProduct = cart.find((item) => item.name === id);
     if (findProduct) {
       if (action === "decrease") {
         if (findProduct.quantity === 1) {
