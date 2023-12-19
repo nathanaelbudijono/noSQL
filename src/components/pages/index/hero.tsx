@@ -2,7 +2,7 @@ import { Button } from "@/components/buttons/button";
 import Typography from "@/components/core/typography";
 import Layout from "@/components/layout/layout";
 
-export default function Hero() {
+export default function Hero({ role }: { role: string }) {
   return (
     <main className="bg-neutral-600">
       <Layout className="h-screen max-sm:h-full">
@@ -17,11 +17,7 @@ export default function Hero() {
             <Typography variant="h3" color="green">
               SIMWHITE 377
             </Typography>
-            <div>
-              <Button variant="default" className="px-6">
-                Register
-              </Button>
-            </div>
+            <div>{!role && <Button variant="default">Register</Button>}</div>
           </div>
           <div>
             <img

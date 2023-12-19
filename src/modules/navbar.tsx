@@ -7,10 +7,16 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { FaUserCircle } from "react-icons/fa";
-import { nextAPIUrl } from "@/constant/env";
+import { nextAPIUrl, nextUrl } from "@/constant/env";
 import axios from "axios";
 
-import { LogOut, Settings, User, LayoutDashboard } from "lucide-react";
+import {
+  LogOut,
+  Settings,
+  User,
+  LayoutDashboard,
+  ShoppingCart,
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -23,6 +29,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/core/dropdown-menu";
 import Typography from "@/components/core/typography";
+import { useCount } from "@/lib/store";
 
 interface navbarType {
   id: string;
@@ -32,6 +39,7 @@ interface navbarType {
 export default function Navbar({ id, role }: navbarType) {
   const pathname = usePathname();
   const router = useRouter();
+  const count = useCount();
 
   async function LogoutSystem() {
     const res = await axios.post(`${nextAPIUrl}/public/logout`);
@@ -48,6 +56,23 @@ export default function Navbar({ id, role }: navbarType) {
             <Link href={"/"}>
               <img src="/image/GloWhite.png" className="h-12" />
             </Link>
+            <div className="flex items-center">
+              <Link
+                href={`${nextUrl}/user/dashboard/cart`}
+                className="flex items-center hover:bg-accent px-2 py-1 rounded-md ease-in-out relative"
+              >
+                <span className="text-xs absolute top-0 right-0 w-4 h-4 bg-accent rounded-full flex items-center justify-center">
+                  {count > 0 && count}
+                </span>
+                <ShoppingCart />
+              </Link>
+              <Link href={"/user/dashboard"}>
+                <Button variant="ghost" className="flex gap-1">
+                  <LayoutDashboard />
+                  <Typography variant="small">Dashboard</Typography>
+                </Button>
+              </Link>
+            </div>
             {pathname.startsWith("/login") ||
             pathname.startsWith("/register") ? (
               ""
@@ -56,7 +81,7 @@ export default function Navbar({ id, role }: navbarType) {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost">
-                      <FaUserCircle />
+                      <FaUserCircle className="text-lg" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56 bg-white">
@@ -118,7 +143,7 @@ export default function Navbar({ id, role }: navbarType) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost">
-                    <FaUserCircle />
+                    <FaUserCircle className="text-lg" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56 bg-white">

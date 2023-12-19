@@ -10,7 +10,31 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField } from "@/components/forms/form";
 import { Input } from "@/components/forms/input";
 
-const icons = [CiInstagram, CiTwitter, CiYoutube, FaWhatsapp];
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/core/tool-tip";
+
+const icons = [
+  {
+    icon: CiInstagram,
+    text: "@Glowhitebeauty",
+  },
+  {
+    icon: CiTwitter,
+    text: "@Glowhitebeauty",
+  },
+  {
+    icon: CiYoutube,
+    text: "@Glowhitebeauty",
+  },
+  {
+    icon: FaWhatsapp,
+    text: "+628123456789",
+  },
+];
 
 export default function Footer() {
   const FormSchema = z.object({
@@ -42,11 +66,13 @@ export default function Footer() {
             <Typography variant="large" className="text-white">
               PT. GloWHite Indonesia
             </Typography>
-            <div className="flex gap-3 items-center mt-3">
-              {icons.map((Icon, i) => (
-                <li key={i} className="p-1 bg-neutral-200 rounded-md list-none">
-                  <Icon />
-                </li>
+            <div className="flex gap-2 items-center mt-3">
+              {icons.map((item, index) => (
+                <TooltipWithIcon
+                  key={index}
+                  icon={item.icon}
+                  text={item.text}
+                />
               ))}
             </div>
           </div>
@@ -125,6 +151,22 @@ export default function Footer() {
     </main>
   );
 }
+
+// @ts-ignore
+const TooltipWithIcon = ({ icon: Icon, text }) => (
+  <div>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <Icon size={24} />
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>{text}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  </div>
+);
 
 const company = [
   {
