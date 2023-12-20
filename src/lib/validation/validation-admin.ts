@@ -26,7 +26,7 @@ export async function validateAdmin(ctx: GetServerSidePropsContext) {
     } else {
       return {
         redirect: {
-          destination: "/user/dashboard",
+          destination: "https://glowhite.vercel.app/user/dashboard",
         },
       };
     }

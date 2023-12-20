@@ -26,14 +26,14 @@ export async function validateUser(ctx: GetServerSidePropsContext) {
     } else {
       return {
         redirect: {
-          destination: "http://localhost:3000/admin/dashboard",
+          destination: "https://glowhite.vercel.app/admin/dashboard",
         },
       };
     }
   } else {
     return {
       redirect: {
-        destination: "/",
+        destination: "https/glowhite.vercel.app/",
       },
     };
   }
