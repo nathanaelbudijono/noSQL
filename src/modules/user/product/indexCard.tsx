@@ -18,7 +18,9 @@ export default function IndexCard({
   const router = useRouter();
   return (
     <main
-      className={`${index === 0 ? "mt-3" : "mt-5"} h-[40vh]  max-sm:h-full `}
+      className={`${
+        index === 0 ? "mt-3" : "mt-5"
+      } h-full mb-10  max-sm:h-full `}
     >
       <section
         className={`flex  ${
@@ -37,6 +39,7 @@ export default function IndexCard({
             {product.name}
           </Typography>
           <Typography variant="small" color="muted">
+            {product.description}
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
             vitae lorem quam. Nulla felis libero, lacinia at est id, tincidunt
             dignissim turpis. Nam lobortis, nisl ut ultrices vulputate, enim
