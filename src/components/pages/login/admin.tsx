@@ -45,7 +45,7 @@ export default function LoginAsAdmin() {
         email,
         password,
       });
-
+      console.log("res", res);
       if (res.status === 200) {
         router.push(`${nextUrl}/admin/dashboard`);
       } else {

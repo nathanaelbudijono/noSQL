@@ -52,6 +52,7 @@ export default async function Handler(
         console.error("Error logging in:", err);
         return res.status(500).json({ message: "Internal Server Error!" });
       }
+      break;
     default:
       return res.status(405).json({ message: "Method not allowed!" });
   }
