@@ -47,7 +47,7 @@ export default function Navbar({ id, role, image }: navbarType) {
   async function LogoutSystem() {
     const res = await axios.post(`${nextAPIUrl}/public/logout`);
     if (res.status === 200) {
-      router.push("http://localhost:3000");
+      router.push(`${nextUrl}`);
     }
   }
 

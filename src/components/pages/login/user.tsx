@@ -121,7 +121,7 @@ export default function Userlogin() {
       </section>
       <div className="flex items-center gap-1 mt-3">
         <span className="text-sm">Belum punya akun?</span>
-        <Link href="localhost:3000/register/user" className="text-neutral-400">
+        <Link href={`${nextUrl}/register/user`} className="text-neutral-400">
           Register disini.
         </Link>
       </div>

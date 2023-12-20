@@ -134,7 +134,7 @@ export default function UpdateAddress({
           />
           <div className="flex mt-3">
             <Button type="submit" variant="default" className="w-full">
-              {isLoading ? <ImSpinner2 className="animate-spin" /> : "Log in"}
+              {isLoading ? <ImSpinner2 className="animate-spin" /> : "Save"}
             </Button>
           </div>
         </form>

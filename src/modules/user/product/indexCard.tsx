@@ -18,12 +18,12 @@ export default function IndexCard({
   const router = useRouter();
   return (
     <main
-      className={`${index === 0 ? "mt-3" : "mt-5"} h-[40vh] max-sm:h-full `}
+      className={`${index === 0 ? "mt-3" : "mt-5"} h-[40vh]  max-sm:h-full `}
     >
       <section
         className={`flex  ${
           index === 1 ? "flex-row-reverse" : " "
-        } gap-5 max-sm:flex-col w-full `}
+        } gap-5 max-sm:flex-col w-full`}
       >
         <div className="w-full flex max-sm:justify-center ">
           <img
@@ -42,7 +42,7 @@ export default function IndexCard({
             dignissim turpis. Nam lobortis, nisl ut ultrices vulputate, enim
             velit congue ante, ut sagittis justo dui ac lectus.
           </Typography>
-          <div>
+          <div className="max-sm:mb-5">
             {role === "user" && (
               <Button
                 variant="default"
