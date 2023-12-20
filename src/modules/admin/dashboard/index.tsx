@@ -2,6 +2,7 @@ import StatementChart from "@/components/core/chart";
 import { Skeleton } from "@/components/core/skeleton";
 import Typography from "@/components/core/typography";
 import { adminProfileType } from "@/lib/slices/role/admin-slices";
+import { transactionType } from "@/lib/slices/transaction-slice";
 import { useAppStore } from "@/lib/store";
 import { Layout } from "lucide-react";
 import { FaMoneyBillWave } from "react-icons/fa6";
@@ -86,7 +87,7 @@ export default function AdminDashboardModule({
             A list of your recent Transactions.
           </Typography>
           <div className="mt-3">
-            {recentTransaction.slice(0, 6).map((item, index) => {
+            {recentTransaction?.map((item, index) => {
               return (
                 <div
                   className="flex justify-between items-center py-2"

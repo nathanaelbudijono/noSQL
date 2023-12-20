@@ -8,7 +8,7 @@ connectToDatabase();
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     try {
-      const product = await ItemsCart.find();
+      const product = await ItemsCart.find().sort({ createdAt: -1 });
       if (!product) {
         return res.status(400).json({ message: "Product not found!" });
       }

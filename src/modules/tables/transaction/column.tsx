@@ -75,7 +75,7 @@ const StatusForm: React.FC<StatusFormProps> = ({ id, initialStatus }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex gap-2"
+        className="w-full grid grid-cols-2 gap-2"
       >
         <FormField
           control={form.control}

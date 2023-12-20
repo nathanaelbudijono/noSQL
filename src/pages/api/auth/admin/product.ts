@@ -64,7 +64,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
     case "GET":
       try {
-        const product = await Product.find();
+        const product = await Product.find().sort({ createdAt: -1 });
         if (!product) {
           return res.status(400).json({ message: "Product not found!" });
         }
