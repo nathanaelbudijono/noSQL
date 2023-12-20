@@ -52,7 +52,7 @@ export function DataTableProduct<TData, TValue>({
 
   return (
     <main>
-      <section className=" flex justify-between">
+      <section className=" flex justify-between gap-2">
         <div className="flex items-center mb-5">
           <Input
             placeholder="Search by product name..."

@@ -44,7 +44,7 @@ export default function AdminDashboardModule({
   ];
   return (
     <main>
-      <section className="grid grid-cols-4 gap-2">
+      <section className="grid grid-cols-4 max-sm:grid-cols-2 gap-2">
         {quickData?.map((item, index) => {
           return (
             <div
