@@ -1,5 +1,5 @@
 import * as z from "zod";
-
+import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -19,7 +19,10 @@ import {
   FormMessage,
 } from "@/components/forms/form";
 import Link from "next/link";
+
+import { ImSpinner2 } from "react-icons/im";
 export default function LoginAsAdmin() {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const router = useRouter();
   const FormSchema = z.object({
     email: z.string().min(2, {
@@ -37,6 +40,7 @@ export default function LoginAsAdmin() {
     let email = data.email;
     let password = data.password;
     try {
+      setIsLoading(true);
       const res = await axios.post(`${nextAPIUrl}/public/admin`, {
         email,
         password,
@@ -47,8 +51,10 @@ export default function LoginAsAdmin() {
       } else {
         return;
       }
-    } catch (err) {
-      toast.error("Internal server error.");
+    } catch (err: any) {
+      toast.error(err.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
@@ -106,18 +112,12 @@ export default function LoginAsAdmin() {
 
             <div className="justify-end flex mt-3">
               <Button type="submit" variant="default">
-                Sign in
+                {isLoading ? <ImSpinner2 className="animate-spin" /> : "Login"}
               </Button>
             </div>
           </form>
         </Form>
       </section>
-      <div className="flex items-center gap-1 mt-3">
-        <span className="text-sm">Belum punya akun?</span>
-        <Link href="localhost:3000/register/admin" className="text-neutral-400">
-          Register disini.
-        </Link>
-      </div>
     </main>
   );
 }
