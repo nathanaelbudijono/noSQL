@@ -12,6 +12,7 @@ export interface userInterface extends Document {
   password: string;
   role: string;
   wallet: number;
+  imageURL: string;
   createdAt: Date;
 }
 
@@ -26,6 +27,7 @@ const UserSchema = new Schema<userInterface>(
     subdistrict: { type: String, required: true },
     city: { type: String, required: true },
     password: { type: String, required: true },
+    imageURL: { type: String, default: "" },
     role: { type: String, default: "user" },
     wallet: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },

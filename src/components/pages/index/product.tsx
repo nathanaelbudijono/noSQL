@@ -287,7 +287,7 @@ function IndexCard({
   const router = useRouter();
   return (
     <main
-      className={`${index === 0 ? "mt-3" : "mt-5"} h-[40vh] max-sm:h-full `}
+      className={`${index === 0 ? "mt-3" : "mt-5"} h-[60vh] max-sm:h-full `}
     >
       <section
         className={`flex  ${

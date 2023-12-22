@@ -2,34 +2,33 @@ import * as React from "react";
 
 import Seo from "@/components/core/seo";
 import Layout from "@/components/layout/layout";
-import { useAppStore } from "@/lib/store";
-import UserDashboard from "@/components/pages/user/dashboard";
-import { GetServerSidePropsContext } from "next";
-import { validateHome } from "@/lib/validation/validation-home";
+import ProfileUser from "@/components/pages/user/dashboard/profile";
 import { userType } from "@/lib/slices/role/user-slices";
-import Navbar from "@/modules/navbar";
+import { useAppStore } from "@/lib/store";
+import { validateHome } from "@/lib/validation/validation-home";
 import Footer from "@/modules/footer";
+import Navbar from "@/modules/navbar";
+import { GetServerSidePropsContext } from "next";
+import { Skeleton } from "@/components/core/skeleton";
 
-const UserDashboardPage = ({ user }: { user: userType }) => {
-  const { getUserInfo, getUserComplete, userComplete } = useAppStore();
+export default function UseProfilePage({ user }: { user: userType }) {
+  const { getUserComplete, userComplete } = useAppStore();
   React.useEffect(() => {
-    getUserInfo();
     getUserComplete(user?.id);
   }, [user?.id]);
+
   return (
     <main>
-      <Seo templateTitle="Dashboard" />
+      <Seo templateTitle="Profile" />
       <Navbar id={user?.id} role={user?.role} />
-      <Layout className="flex flex-col">
+      <Layout className="flex flex-scol">
         {/* @ts-ignore */}
-        <UserDashboard userComplete={userComplete} />
+        <ProfileUser id={user?.id} userComplete={userComplete} />
       </Layout>
       <Footer />
     </main>
   );
-};
-
-export default UserDashboardPage;
+}
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   return await validateHome(ctx);
